@@ -10,140 +10,140 @@
 ### 1.1 Project Setup
 
 #### Backend Setup
-- [ ] Initialize Python project with FastAPI
-- [ ] Set up project folder structure
-- [ ] Configure SQLAlchemy and Alembic
-- [ ] Set up PostgreSQL database (local Docker)
-- [ ] Create initial migration (users, members, family_relationships)
-- [ ] Configure CORS middleware
-- [ ] Set up environment variables (.env)
-- [ ] Create requirements.txt with all dependencies
+- [x] Initialize Python project with FastAPI
+- [x] Set up project folder structure
+- [x] Configure SQLAlchemy and Alembic
+- [x] Set up PostgreSQL database (local Docker)
+- [x] Create initial migration (users, members, family_relationships)
+- [x] Configure CORS middleware
+- [x] Set up environment variables (.env)
+- [x] Create requirements.txt with all dependencies
 
 #### Frontend Setup
-- [ ] Initialize React project with Vite
-- [ ] Configure TypeScript
-- [ ] Set up Tailwind CSS
-- [ ] Install and configure shadcn/ui
-- [ ] Set up React Router
-- [ ] Configure ESLint and Prettier
-- [ ] Create folder structure (components, pages, services, etc.)
-- [ ] Set up environment variables
+- [x] Initialize React project with Vite
+- [x] Configure TypeScript
+- [x] Set up Tailwind CSS
+- [x] Install and configure shadcn/ui
+- [x] Set up React Router
+- [x] Configure ESLint and Prettier
+- [x] Create folder structure (components, pages, services, etc.)
+- [x] Set up environment variables
 
 #### Infrastructure Setup
-- [ ] Create docker-compose.yml for local development
-- [ ] Set up AWS account (if not exists)
-- [ ] Create S3 bucket for media storage
-- [ ] Configure S3 CORS policy
+- [x] ~~Create docker-compose.yml for local development~~ *(Not required)*
+- [x] Set up AWS account (if not exists)
+- [x] Create S3 bucket for media storage
+- [x] Configure S3 CORS policy
 
 ---
 
 ### 1.2 Authentication
 
 #### Backend Auth
-- [ ] Create User model with password hashing
-- [ ] Create RefreshToken model
-- [ ] Implement JWT token generation (access + refresh)
-- [ ] Implement token validation middleware
-- [ ] Create `/auth/register` endpoint
-- [ ] Create `/auth/login` endpoint
-- [ ] Create `/auth/refresh` endpoint
-- [ ] Create `/auth/logout` endpoint
-- [ ] Create `/auth/forgot-password` endpoint
-- [ ] Create `/auth/reset-password` endpoint
-- [ ] Create `/auth/me` endpoint
-- [ ] Implement role-based access control decorator
-- [ ] Write unit tests for auth service
+- [x] Create User model with password hashing
+- [x] Create RefreshToken model
+- [x] Implement JWT token generation (access + refresh)
+- [x] Implement token validation middleware
+- [x] Create `/auth/register` endpoint
+- [x] Create `/auth/login` endpoint
+- [x] Create `/auth/refresh` endpoint
+- [x] Create `/auth/logout` endpoint
+- [x] Create `/auth/forgot-password` endpoint
+- [x] Create `/auth/reset-password` endpoint
+- [x] Create `/auth/me` endpoint
+- [x] Implement role-based access control decorator
+- [x] Write unit tests for auth service
 
 #### Frontend Auth
-- [ ] Create AuthContext for state management
-- [ ] Create API service with Axios
-- [ ] Implement token interceptor for auto-refresh
-- [ ] Create Login page with form
-- [ ] Create Register page with form
-- [ ] Create Forgot Password page
-- [ ] Create Reset Password page
-- [ ] Create ProtectedRoute component
-- [ ] Create useAuth hook
-- [ ] Test auth flow end-to-end
+- [x] Create AuthContext for state management
+- [x] Create API service with Axios
+- [x] Implement token interceptor for auto-refresh
+- [x] Create Login page with form
+- [x] Create Register page with form
+- [x] Create Forgot Password page
+- [x] Create Reset Password page
+- [x] Create ProtectedRoute component
+- [x] Create useAuth hook
+- [x] Test auth flow end-to-end
 
 ---
 
 ### 1.3 Member Management
 
 #### Backend Members
-- [ ] Create Member model
-- [ ] Create FamilyRelationship model
-- [ ] Create member Pydantic schemas (create, update, response)
-- [ ] Create `/members` GET endpoint (list with pagination, search, filter)
-- [ ] Create `/members` POST endpoint (create)
-- [ ] Create `/members/{id}` GET endpoint (detail)
-- [ ] Create `/members/{id}` PUT endpoint (update)
-- [ ] Create `/members/{id}` DELETE endpoint (soft delete)
-- [ ] Create `/members/{id}/photo` POST endpoint (presigned URL)
-- [ ] Create `/members/{id}/family` GET endpoint
-- [ ] Create `/members/{id}/family` POST endpoint
-- [ ] Create `/members/{id}/family/{rel_id}` DELETE endpoint
-- [ ] Implement bidirectional family relationship logic
-- [ ] Write unit tests for member service
+- [x] Create Member model
+- [x] Create FamilyRelationship model
+- [x] Create member Pydantic schemas (create, update, response)
+- [x] Create `/members` GET endpoint (list with pagination, search, filter)
+- [x] Create `/members` POST endpoint (create)
+- [x] Create `/members/{id}` GET endpoint (detail)
+- [x] Create `/members/{id}` PUT endpoint (update)
+- [x] Create `/members/{id}` DELETE endpoint (soft delete)
+- [x] Create `/members/{id}/photo` POST endpoint (presigned URL)
+- [x] Create `/members/{id}/family` GET endpoint
+- [x] Create `/members/{id}/family` POST endpoint
+- [x] Create `/members/{id}/family/{rel_id}` DELETE endpoint
+- [x] Implement bidirectional family relationship logic
+- [x] Write unit tests for member service
 
 #### Frontend Members
-- [ ] Create Member TypeScript types
-- [ ] Create member API service functions
-- [ ] Create Members list page with DataTable
-- [ ] Implement search functionality
-- [ ] Implement status filter
-- [ ] Implement pagination
-- [ ] Create Member form (create/edit)
-- [ ] Create Member detail page
-- [ ] Create photo upload component
-- [ ] Create family relationship section on profile
-- [ ] Create add family member modal
-- [ ] Test member CRUD end-to-end
+- [x] Create Member TypeScript types
+- [x] Create member API service functions
+- [x] Create Members list page with DataTable
+- [x] Implement search functionality
+- [x] Implement status filter
+- [x] Implement pagination
+- [x] Create Member form (create/edit)
+- [x] Create Member detail page
+- [x] Create photo upload component
+- [x] Create family relationship section on profile
+- [x] Create add family member modal
+- [x] Test member CRUD end-to-end
 
 ---
 
 ### 1.4 Admin Dashboard
 
 #### Backend Dashboard
-- [ ] Create `/dashboard/stats` endpoint
-- [ ] Create `/dashboard/recent-members` endpoint
-- [ ] Implement stats calculation (totals, monthly counts)
+- [x] Create `/dashboard/stats` endpoint
+- [x] Create `/dashboard/recent-members` endpoint
+- [x] Implement stats calculation (totals, monthly counts)
 
 #### Frontend Dashboard
-- [ ] Create AdminLayout component (sidebar, header, main)
-- [ ] Create Sidebar component with navigation
-- [ ] Create Header component with user menu
-- [ ] Create Dashboard page
-- [ ] Create StatsCard component
-- [ ] Create RecentMembers component
-- [ ] Implement responsive sidebar (collapse on mobile)
-- [ ] Add navigation items (with placeholders for future phases)
-- [ ] Test dashboard layout on mobile
+- [x] Create AdminLayout component (sidebar, header, main)
+- [x] Create Sidebar component with navigation
+- [x] Create Header component with user menu
+- [x] Create Dashboard page
+- [x] Create StatsCard component
+- [x] Create RecentMembers component
+- [x] Implement responsive sidebar (collapse on mobile)
+- [x] Add navigation items (with placeholders for future phases)
+- [x] Test dashboard layout on mobile
 
 ---
 
 ### 1.5 Public Website
 
 #### Frontend Public
-- [ ] Create PublicLayout component (header, footer)
-- [ ] Create public Header with navigation
-- [ ] Create Footer component
-- [ ] Create Landing page (hero, sections)
-- [ ] Create About page (placeholder)
-- [ ] Create Contact page (placeholder)
-- [ ] Ensure public pages accessible without auth
-- [ ] Test responsive design
+- [x] Create PublicLayout component (header, footer)
+- [x] Create public Header with navigation
+- [x] Create Footer component
+- [x] Create Landing page (hero, sections)
+- [x] Create About page (placeholder)
+- [x] Create Contact page (placeholder)
+- [x] Ensure public pages accessible without auth
+- [x] Test responsive design
 
 ---
 
 ### 1.6 Phase 1 Finalization
 
-- [ ] Run full test suite (backend)
-- [ ] Run full test suite (frontend)
-- [ ] Fix any failing tests
-- [ ] Manual testing of all features
+- [x] Run full test suite (backend) - 53 tests passing
+- [x] Run full test suite (frontend) - lint & build passing
+- [x] Fix any failing tests
+- [x] Manual testing of all features
 - [ ] Code review
-- [ ] Update documentation
+- [x] Update documentation
 - [ ] **Phase 1 Complete** ✓
 
 ---
@@ -399,27 +399,27 @@
 ### AWS Deployment
 
 #### Backend Deployment
-- [ ] Create Lambda function
-- [ ] Package backend with Mangum
-- [ ] Configure API Gateway
-- [ ] Set up RDS PostgreSQL
-- [ ] Configure environment variables in Secrets Manager
-- [ ] Run database migrations
-- [ ] Test API endpoints
+- [x] Create Lambda function
+- [x] Package backend with Mangum
+- [x] Configure API Gateway
+- [x] Set up RDS PostgreSQL
+- [x] Configure environment variables in Secrets Manager
+- [x] Run database migrations
+- [x] Test API endpoints
 
 #### Frontend Deployment
-- [ ] Build production frontend
-- [ ] Upload to S3 bucket
-- [ ] Configure CloudFront distribution
+- [x] Build production frontend
+- [x] Upload to S3 bucket
+- [x] Configure CloudFront distribution
 - [ ] Set up custom domain (optional)
-- [ ] Configure SSL certificate
-- [ ] Test public website
+- [x] Configure SSL certificate
+- [x] Test public website
 
 #### CI/CD
-- [ ] Create GitHub Actions workflow for backend
-- [ ] Create GitHub Actions workflow for frontend
-- [ ] Configure deployment on push to main
-- [ ] Test full deployment pipeline
+- [x] Create GitHub Actions workflow for backend
+- [x] Create GitHub Actions workflow for frontend
+- [x] Configure deployment on push to main
+- [x] Test full deployment pipeline
 
 ---
 
@@ -443,10 +443,20 @@
 _Use this section to track decisions, blockers, and important notes during implementation._
 
 ### Decisions Made
--
+- Using Zustand for frontend state management instead of React Context
+- Deployed to AWS (Lambda, API Gateway, RDS, S3, CloudFront)
 
 ### Blockers
 -
 
 ### Notes
--
+- Phase 1 is now ~98% complete. Remaining items:
+  - Code review
+- Phase 1 completed items (Jan 12, 2026):
+  - S3 CORS policy configured
+  - Unit tests for auth service (29 tests)
+  - Unit tests for member service (24 tests)
+  - Photo upload component with client-side resize
+  - Add family member modal UI
+  - About and Contact placeholder pages
+  - Cross-database compatible GUID type for testing with SQLite
