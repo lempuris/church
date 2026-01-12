@@ -101,7 +101,7 @@ export interface MemberCreate {
   notes?: string
 }
 
-export interface MemberUpdate extends Partial<MemberCreate> {}
+export type MemberUpdate = Partial<MemberCreate>
 
 export interface ApiError {
   detail: string | { msg: string; loc: string[] }[]
