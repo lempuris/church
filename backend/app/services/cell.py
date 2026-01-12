@@ -67,9 +67,13 @@ class CellService:
         return result, total
 
     def _get_member_count(self, cell_id: UUID) -> int:
-        stmt = select(func.count()).select_from(CellMember).where(
-            CellMember.cell_id == cell_id,
-            CellMember.is_active == True,  # noqa: E712
+        stmt = (
+            select(func.count())
+            .select_from(CellMember)
+            .where(
+                CellMember.cell_id == cell_id,
+                CellMember.is_active == True,  # noqa: E712
+            )
         )
         return self.db.execute(stmt).scalar() or 0
 

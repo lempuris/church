@@ -3,13 +3,11 @@ import io
 from datetime import datetime, timedelta
 from uuid import UUID
 
-from sqlalchemy import and_, func, select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.models import Attendance, Cell, CellMember, Event, Member
 from app.schemas.attendance import (
-    AttendanceCreate,
-    AttendanceExportRow,
     CellAttendanceComparison,
     EventAttendanceSummary,
     MemberAttendanceRecord,
@@ -39,21 +37,23 @@ class AttendanceService:
                 select(Member).where(Member.id == record.member_id)
             ).scalar_one_or_none()
             if member:
-                result.append({
-                    "id": record.id,
-                    "event_id": record.event_id,
-                    "member_id": record.member_id,
-                    "checked_in_at": record.checked_in_at,
-                    "check_in_method": record.check_in_method,
-                    "checked_in_by": record.checked_in_by,
-                    "notes": record.notes,
-                    "member": {
-                        "id": member.id,
-                        "first_name": member.first_name,
-                        "last_name": member.last_name,
-                        "photo_url": member.photo_url,
-                    },
-                })
+                result.append(
+                    {
+                        "id": record.id,
+                        "event_id": record.event_id,
+                        "member_id": record.member_id,
+                        "checked_in_at": record.checked_in_at,
+                        "check_in_method": record.check_in_method,
+                        "checked_in_by": record.checked_in_by,
+                        "notes": record.notes,
+                        "member": {
+                            "id": member.id,
+                            "first_name": member.first_name,
+                            "last_name": member.last_name,
+                            "photo_url": member.photo_url,
+                        },
+                    }
+                )
         return result
 
     def check_in_member(
@@ -289,11 +289,14 @@ class AttendanceService:
         total_attendance = 0
 
         for event in events:
-            count = self.db.execute(
-                select(func.count())
-                .select_from(Attendance)
-                .where(Attendance.event_id == event.id)
-            ).scalar() or 0
+            count = (
+                self.db.execute(
+                    select(func.count())
+                    .select_from(Attendance)
+                    .where(Attendance.event_id == event.id)
+                ).scalar()
+                or 0
+            )
 
             total_attendance += count
             event_summaries.append(
@@ -328,7 +331,9 @@ class AttendanceService:
         cells = list(
             self.db.execute(
                 select(Cell).where(Cell.is_active == True)  # noqa: E712
-            ).scalars().all()
+            )
+            .scalars()
+            .all()
         )
 
         result = []
@@ -341,7 +346,9 @@ class AttendanceService:
                         CellMember.cell_id == cell.id,
                         CellMember.is_active == True,  # noqa: E712
                     )
-                ).scalars().all()
+                )
+                .scalars()
+                .all()
             ]
 
             if not member_ids:
@@ -392,14 +399,16 @@ class AttendanceService:
         writer = csv.writer(output)
 
         # Header
-        writer.writerow([
-            "Member Name",
-            "Email",
-            "Phone",
-            "Checked In At",
-            "Check-in Method",
-            "Notes",
-        ])
+        writer.writerow(
+            [
+                "Member Name",
+                "Email",
+                "Phone",
+                "Checked In At",
+                "Check-in Method",
+                "Notes",
+            ]
+        )
 
         # Data rows
         for record in attendance_records:
@@ -409,14 +418,16 @@ class AttendanceService:
                 select(Member).where(Member.id == member["id"])
             ).scalar_one_or_none()
 
-            writer.writerow([
-                f"{member['first_name']} {member['last_name']}",
-                full_member.email if full_member else "",
-                full_member.phone if full_member else "",
-                record["checked_in_at"].strftime("%Y-%m-%d %H:%M:%S"),
-                record["check_in_method"],
-                record["notes"] or "",
-            ])
+            writer.writerow(
+                [
+                    f"{member['first_name']} {member['last_name']}",
+                    full_member.email if full_member else "",
+                    full_member.phone if full_member else "",
+                    record["checked_in_at"].strftime("%Y-%m-%d %H:%M:%S"),
+                    record["check_in_method"],
+                    record["notes"] or "",
+                ]
+            )
 
         return output.getvalue()
 

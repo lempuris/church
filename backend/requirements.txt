@@ -25,11 +25,12 @@ emails==0.6
 
 # Utilities
 python-dotenv==1.0.1
+python-dateutil>=2.8.2
 
 # Testing
 pytest>=8.0.0
 pytest-asyncio>=0.24.0
-httpx>=0.26.0
+httpx>=0.26.0,<0.28.0
 
 # Code quality
 ruff==0.2.0

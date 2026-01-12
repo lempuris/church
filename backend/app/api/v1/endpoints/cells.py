@@ -70,7 +70,9 @@ def create_cell(
 
     # Validate assistant leader exists if provided
     if cell_data.assistant_leader_id:
-        member = db.query(Member).filter(Member.id == cell_data.assistant_leader_id).first()
+        member = (
+            db.query(Member).filter(Member.id == cell_data.assistant_leader_id).first()
+        )
         if not member:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -138,7 +140,9 @@ def update_cell(
 
     # Validate assistant leader exists if provided
     if cell_data.assistant_leader_id:
-        member = db.query(Member).filter(Member.id == cell_data.assistant_leader_id).first()
+        member = (
+            db.query(Member).filter(Member.id == cell_data.assistant_leader_id).first()
+        )
         if not member:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -229,9 +233,7 @@ def add_cell_member(
     )
 
 
-@router.delete(
-    "/{cell_id}/members/{member_id}", status_code=status.HTTP_204_NO_CONTENT
-)
+@router.delete("/{cell_id}/members/{member_id}", status_code=status.HTTP_204_NO_CONTENT)
 def remove_cell_member(
     cell_id: UUID,
     member_id: UUID,

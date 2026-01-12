@@ -8,14 +8,13 @@ from sqlalchemy.orm import Session
 
 from app.api.v1.deps import get_current_user, require_leader_or_above
 from app.core.database import get_db
-from app.models import Event, Member, User
+from app.models import Member, User
 from app.schemas import (
     AttendanceBulkCreate,
     AttendanceCreate,
     AttendanceListResponse,
     AttendanceResponse,
     AttendanceSummaryReport,
-    AttendanceUpdate,
     CellAttendanceComparison,
     MemberAttendanceReport,
     MemberInfo,
@@ -203,12 +202,26 @@ def self_check_in(
 def verify_qr_check_in(
     verify_data: QRVerifyRequest,
     db: Annotated[Session, Depends(get_db)],
+    current_user: Annotated[User, Depends(get_current_user)],
 ):
-    """Verify QR code and check in member."""
+    """Verify QR code and check in the authenticated user.
+
+    The member is derived from the authenticated user to prevent
+    impersonation attacks where someone could check in on behalf
+    of others using a stolen QR token.
+    """
+    # Get the member record for the current user - prevents impersonation
+    member = db.query(Member).filter(Member.user_id == current_user.id).first()
+    if not member:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No member profile found for this user",
+        )
+
     attendance_service = get_attendance_service(db)
     success, message, attendance_id = attendance_service.qr_check_in(
         qr_token=verify_data.qr_token,
-        member_id=verify_data.member_id,
+        member_id=member.id,  # Use authenticated user's member ID, not from request
     )
 
     return QRVerifyResponse(
@@ -305,9 +318,7 @@ def get_attendance_summary(
     return AttendanceSummaryReport(**summary)
 
 
-@router.get(
-    "/attendance/reports/cells", response_model=list[CellAttendanceComparison]
-)
+@router.get("/attendance/reports/cells", response_model=list[CellAttendanceComparison])
 def get_cell_attendance_comparison(
     db: Annotated[Session, Depends(get_db)],
     current_user: Annotated[User, Depends(require_leader_or_above)],

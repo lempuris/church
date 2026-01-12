@@ -15,7 +15,9 @@ class Event(Base):
     title: Mapped[str] = mapped_column(String(200), nullable=False)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     event_type: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
-    start_datetime: Mapped[datetime] = mapped_column(DateTime, nullable=False, index=True)
+    start_datetime: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, index=True
+    )
     end_datetime: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     location: Mapped[str | None] = mapped_column(String(255), nullable=True)
     capacity: Mapped[int | None] = mapped_column(Integer, nullable=True)

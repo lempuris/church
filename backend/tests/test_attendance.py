@@ -4,7 +4,6 @@ Tests for attendance endpoints.
 
 from datetime import datetime, timedelta
 
-import pytest
 from fastapi.testclient import TestClient
 
 
@@ -249,9 +248,32 @@ class TestAttendanceEndpoints:
         assert "average_attendance" in data
 
     def test_qr_verify_check_in(
-        self, client: TestClient, auth_headers: dict, test_member_data: dict
+        self,
+        client: TestClient,
+        auth_headers: dict,
+        test_user,
+        db_session,
     ):
-        """Test QR code verification check-in."""
+        """Test QR code verification check-in.
+
+        Note: The verify-qr endpoint now requires authentication and derives
+        the member from the authenticated user to prevent impersonation.
+        """
+        from app.models import Member
+
+        # Create a member linked to the test user
+        member = Member(
+            first_name="QR",
+            last_name="TestUser",
+            email="qr.test@example.com",
+            phone="+254700000001",
+            gender="male",
+            member_status="active",
+            user_id=test_user.id,  # Link to test user
+        )
+        db_session.add(member)
+        db_session.commit()
+
         # Create event with self check-in enabled (within check-in window)
         event_data = {
             "title": "QR Test Event",
@@ -265,14 +287,11 @@ class TestAttendanceEndpoints:
         )
         qr_token = event_response.json()["qr_code_token"]
 
-        member_response = client.post(
-            "/api/v1/members", json=test_member_data, headers=auth_headers
-        )
-        member_id = member_response.json()["id"]
-
+        # QR verify now requires auth and uses the authenticated user's member
         response = client.post(
             "/api/v1/attendance/verify-qr",
-            json={"qr_token": qr_token, "member_id": member_id},
+            json={"qr_token": qr_token, "member_id": str(member.id)},
+            headers=auth_headers,  # Authentication required
         )
         assert response.status_code == 200
         data = response.json()

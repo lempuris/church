@@ -4,7 +4,6 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
-
 CheckInMethod = Literal["manual", "self", "qr"]
 
 

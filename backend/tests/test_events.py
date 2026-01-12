@@ -4,7 +4,6 @@ Tests for event endpoints.
 
 from datetime import datetime, timedelta
 
-import pytest
 from fastapi.testclient import TestClient
 
 
@@ -16,6 +15,11 @@ class TestEventEndpoints:
         dt = datetime.utcnow() + timedelta(days=days)
         return dt.isoformat()
 
+    def _get_future_datetime_with_offset(self, days: int = 7, hours: int = 0) -> str:
+        """Helper to get a future datetime string with hour offset."""
+        dt = datetime.utcnow() + timedelta(days=days, hours=hours)
+        return dt.isoformat()
+
     def test_create_event(self, client: TestClient, auth_headers: dict):
         """Test creating a new event."""
         event_data = {
@@ -23,7 +27,9 @@ class TestEventEndpoints:
             "description": "Weekly Sunday worship service",
             "event_type": "service",
             "start_datetime": self._get_future_datetime(7),
-            "end_datetime": self._get_future_datetime(7),
+            "end_datetime": self._get_future_datetime_with_offset(
+                7, 2
+            ),  # 2 hours after start
             "location": "Main Sanctuary",
             "is_public": True,
         }

@@ -10,9 +10,7 @@ from app.core.database import GUID, Base
 class Member(Base):
     __tablename__ = "members"
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        GUID(), primary_key=True, default=uuid.uuid4
-    )
+    id: Mapped[uuid.UUID] = mapped_column(GUID(), primary_key=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID | None] = mapped_column(
         GUID(), ForeignKey("users.id", ondelete="SET NULL"), nullable=True
     )
@@ -72,9 +70,7 @@ class FamilyRelationship(Base):
         UniqueConstraint("member_id", "related_member_id", name="uq_member_related"),
     )
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        GUID(), primary_key=True, default=uuid.uuid4
-    )
+    id: Mapped[uuid.UUID] = mapped_column(GUID(), primary_key=True, default=uuid.uuid4)
     member_id: Mapped[uuid.UUID] = mapped_column(
         GUID(), ForeignKey("members.id", ondelete="CASCADE"), nullable=False
     )

@@ -2,7 +2,6 @@
 Tests for cell group endpoints.
 """
 
-import pytest
 from fastapi.testclient import TestClient
 
 
@@ -63,12 +62,8 @@ class TestCellEndpoints:
     def test_list_cells_with_search(self, client: TestClient, auth_headers: dict):
         """Test searching cells by name."""
         # Create cells
-        client.post(
-            "/api/v1/cells", json={"name": "Alpha Cell"}, headers=auth_headers
-        )
-        client.post(
-            "/api/v1/cells", json={"name": "Beta Cell"}, headers=auth_headers
-        )
+        client.post("/api/v1/cells", json={"name": "Alpha Cell"}, headers=auth_headers)
+        client.post("/api/v1/cells", json={"name": "Beta Cell"}, headers=auth_headers)
 
         response = client.get(
             "/api/v1/cells", params={"search": "Alpha"}, headers=auth_headers

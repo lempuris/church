@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta
 from uuid import UUID
 
+from dateutil.relativedelta import relativedelta
 from sqlalchemy import and_, func, or_, select
 from sqlalchemy.orm import Session
 
-from app.models import Attendance, Event, User
+from app.models import Attendance, Event
 from app.schemas.event import EventCreate, EventUpdate
 
 
@@ -64,8 +65,10 @@ class EventService:
         return result, total
 
     def _get_attendance_count(self, event_id: UUID) -> int:
-        stmt = select(func.count()).select_from(Attendance).where(
-            Attendance.event_id == event_id
+        stmt = (
+            select(func.count())
+            .select_from(Attendance)
+            .where(Attendance.event_id == event_id)
         )
         return self.db.execute(stmt).scalar() or 0
 
@@ -124,18 +127,17 @@ class EventService:
         instances = []
         current_date = parent_event.start_datetime
 
-        # Determine interval based on recurrence rule
-        if parent_event.recurrence_rule == "weekly":
-            delta = timedelta(weeks=1)
-        elif parent_event.recurrence_rule == "biweekly":
-            delta = timedelta(weeks=2)
-        elif parent_event.recurrence_rule == "monthly":
-            delta = timedelta(days=30)  # Approximate
-        else:
-            return []
-
         for i in range(1, num_instances + 1):
-            next_date = current_date + (delta * i)
+            # Calculate next date based on recurrence rule using proper calendar math
+            if parent_event.recurrence_rule == "weekly":
+                next_date = current_date + timedelta(weeks=i)
+            elif parent_event.recurrence_rule == "biweekly":
+                next_date = current_date + timedelta(weeks=2 * i)
+            elif parent_event.recurrence_rule == "monthly":
+                # Use relativedelta to properly handle month boundaries
+                next_date = current_date + relativedelta(months=i)
+            else:
+                return []
 
             # Calculate end datetime if exists
             end_datetime = None
@@ -206,9 +208,7 @@ class EventService:
         self.db.refresh(event)
         return event
 
-    def cancel_event(
-        self, event_id: UUID, cancel_all: bool = False
-    ) -> Event | None:
+    def cancel_event(self, event_id: UUID, cancel_all: bool = False) -> Event | None:
         event = self.get_event_by_id(event_id)
         if not event:
             return None
@@ -260,7 +260,9 @@ class EventService:
         stmt = stmt.order_by(Event.start_datetime).limit(limit)
         events = list(self.db.execute(stmt).scalars().all())
 
-        return [self._event_to_dict(e, self._get_attendance_count(e.id)) for e in events]
+        return [
+            self._event_to_dict(e, self._get_attendance_count(e.id)) for e in events
+        ]
 
     def get_calendar_events(
         self,
@@ -268,17 +270,23 @@ class EventService:
         end_date: datetime,
         event_type: str | None = None,
     ) -> list[dict]:
-        """Get events for calendar view within a date range."""
+        """Get events for calendar view within a date range.
+
+        Uses proper interval overlap logic to catch all events:
+        - Events starting within the range
+        - Events ending within the range
+        - Events spanning the entire range
+        """
         stmt = select(Event).where(
             Event.is_cancelled == False,  # noqa: E712
+            # Proper interval overlap: event.start <= query.end AND event.end >= query.start
+            Event.start_datetime <= end_date,
             or_(
+                Event.end_datetime >= start_date,
+                # Handle events without end_datetime (single-point events)
                 and_(
+                    Event.end_datetime.is_(None),
                     Event.start_datetime >= start_date,
-                    Event.start_datetime <= end_date,
-                ),
-                and_(
-                    Event.end_datetime >= start_date,
-                    Event.end_datetime <= end_date,
                 ),
             ),
         )

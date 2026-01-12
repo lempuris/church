@@ -20,8 +20,7 @@ from sqlalchemy.pool import StaticPool
 from app.core.database import Base, get_db
 from app.core.security import create_access_token, get_password_hash
 from app.main import app
-from app.models import User, Member
-
+from app.models import Member, User
 
 # Use SQLite in-memory for testing
 SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
@@ -35,19 +34,19 @@ def db_engine():
         connect_args={"check_same_thread": False},
         poolclass=StaticPool,
     )
-    
+
     # Enable foreign key support in SQLite
     @event.listens_for(engine, "connect")
     def set_sqlite_pragma(dbapi_connection, connection_record):
         cursor = dbapi_connection.cursor()
         cursor.execute("PRAGMA foreign_keys=ON")
         cursor.close()
-    
+
     # Create all tables
     Base.metadata.create_all(bind=engine)
-    
+
     yield engine
-    
+
     # Cleanup
     Base.metadata.drop_all(bind=engine)
 
@@ -68,18 +67,18 @@ def db_session(db_engine) -> Generator[Session, None, None]:
 @pytest.fixture(scope="function")
 def client(db_session: Session) -> Generator[TestClient, None, None]:
     """Create a test client with database session override."""
-    
+
     def override_get_db():
         try:
             yield db_session
         finally:
             pass
-    
+
     app.dependency_overrides[get_db] = override_get_db
-    
+
     with TestClient(app) as test_client:
         yield test_client
-    
+
     app.dependency_overrides.clear()
 
 
@@ -121,6 +120,20 @@ def test_member_data() -> dict:
         "phone": "+254712345678",
         "gender": "male",
         "member_status": "active",
+    }
+
+
+@pytest.fixture(scope="function")
+def test_user_data() -> dict:
+    """Provide sample user data for tests."""
+    # Use unique suffix to avoid conflicts between tests
+    unique_id = uuid.uuid4().hex[:8]
+    return {
+        "email": f"test.user.{unique_id}@example.com",
+        "password": "TestPassword123!",
+        "confirm_password": "TestPassword123!",
+        "first_name": "Test",
+        "last_name": "User",
     }
 
 

@@ -4,7 +4,6 @@ from uuid import UUID
 
 from pydantic import BaseModel, field_validator
 
-
 EventType = Literal["service", "cell_meeting", "conference", "special", "other"]
 RecurrenceRule = Literal["weekly", "biweekly", "monthly"]
 
