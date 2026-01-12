@@ -8,8 +8,8 @@ import os
 os.environ["DATABASE_URL"] = "sqlite:///:memory:"
 
 import uuid
+from collections.abc import Generator
 from datetime import datetime
-from typing import Generator
 
 import pytest
 from fastapi.testclient import TestClient
