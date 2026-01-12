@@ -32,13 +32,11 @@ jobs:
 
       - name: Ruff format check
         working-directory: backend
-        run: |
-          ruff format --check .
+        run: ruff format --check .
 
       - name: Ruff lint
         working-directory: backend
-        run: |
-          ruff check .
+        run: ruff check .
 
   type-check:
     name: Type Check (MyPy)
@@ -62,8 +60,7 @@ jobs:
       - name: Run MyPy
         working-directory: backend
         continue-on-error: true
-        run: |
-          mypy app --ignore-missing-imports
+        run: mypy app --ignore-missing-imports
 
   test:
     name: Run Tests
@@ -80,11 +77,9 @@ jobs:
 
       - name: Install dependencies
         working-directory: backend
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Run tests
         working-directory: backend
         continue-on-error: true
-        run: |
-          pytest -v --tb=short || echo "No tests found or tests failed"
+        run: pytest -v --tb=short || echo "No tests found or tests failed"

@@ -16,7 +16,6 @@ env:
   VITE_API_URL: https://joapehkgme.execute-api.us-east-1.amazonaws.com/prod/api/v1
 
 jobs:
-  # CI checks must pass before deployment
   lint:
     name: ESLint Check
     runs-on: ubuntu-latest
@@ -96,8 +95,7 @@ jobs:
 
       - name: Deploy to S3
         working-directory: frontend
-        run: |
-          aws s3 sync dist/ s3://${{ env.S3_BUCKET }} --delete
+        run: aws s3 sync dist/ s3://${{ env.S3_BUCKET }} --delete
 
       - name: Invalidate CloudFront cache
         run: |

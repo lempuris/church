@@ -15,7 +15,6 @@ env:
   S3_BUCKET: church-lambda-deployments
 
 jobs:
-  # CI checks must pass before deployment
   lint-and-format:
     name: Ruff Lint & Format Check
     runs-on: ubuntu-latest
@@ -75,8 +74,7 @@ jobs:
 
       - name: Upload to S3
         working-directory: backend
-        run: |
-          aws s3 cp church-backend.zip s3://${{ env.S3_BUCKET }}/church-backend.zip
+        run: aws s3 cp church-backend.zip s3://${{ env.S3_BUCKET }}/church-backend.zip
 
       - name: Update Lambda function
         run: |
@@ -86,9 +84,7 @@ jobs:
             --s3-key church-backend.zip
 
       - name: Wait for Lambda update
-        run: |
-          aws lambda wait function-updated --function-name ${{ env.LAMBDA_FUNCTION_NAME }}
+        run: aws lambda wait function-updated --function-name ${{ env.LAMBDA_FUNCTION_NAME }}
 
       - name: Verify deployment
-        run: |
-          aws lambda get-function --function-name ${{ env.LAMBDA_FUNCTION_NAME }} --query 'Configuration.LastModified'
+        run: aws lambda get-function --function-name ${{ env.LAMBDA_FUNCTION_NAME }} --query 'Configuration.LastModified'
