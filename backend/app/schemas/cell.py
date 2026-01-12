@@ -10,9 +10,12 @@ class CellBase(BaseModel):
     description: str | None = None
     leader_id: UUID | None = None
     assistant_leader_id: UUID | None = None
-    meeting_day: Literal[
-        "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"
-    ] | None = None
+    meeting_day: (
+        Literal[
+            "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"
+        ]
+        | None
+    ) = None
     meeting_time: time | None = None
     meeting_location: str | None = None
 
@@ -26,9 +29,12 @@ class CellUpdate(BaseModel):
     description: str | None = None
     leader_id: UUID | None = None
     assistant_leader_id: UUID | None = None
-    meeting_day: Literal[
-        "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"
-    ] | None = None
+    meeting_day: (
+        Literal[
+            "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"
+        ]
+        | None
+    ) = None
     meeting_time: time | None = None
     meeting_location: str | None = None
 
