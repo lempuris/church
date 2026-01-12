@@ -63,7 +63,7 @@ jobs:
         working-directory: backend
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt -t lambda_package/ --platform manylinux2014_x86_64 --implementation cp --python-version 3.11 --only-binary=:all:
+          pip install -r requirements-prod.txt -t lambda_package/ --platform manylinux2014_x86_64 --implementation cp --python-version 3.11 --only-binary=:all:
 
       - name: Package Lambda function
         working-directory: backend
