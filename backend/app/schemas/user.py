@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+from typing import Literal
 from uuid import UUID
 
 from pydantic import BaseModel, EmailStr, field_validator
@@ -82,3 +83,35 @@ class PasswordReset(BaseModel):
         if not re.search(r"\d", v):
             raise ValueError("Password must contain at least one number")
         return v
+
+
+# Admin user management schemas
+UserRole = Literal["member", "leader", "pastor", "admin"]
+
+
+class UserUpdate(BaseModel):
+    """Schema for admin to update user details."""
+
+    role: UserRole | None = None
+    is_active: bool | None = None
+    is_verified: bool | None = None
+
+
+class UserDetailResponse(UserResponse):
+    """Extended user response with additional details."""
+
+    last_login_at: datetime | None = None
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class UserListResponse(BaseModel):
+    """Paginated list of users."""
+
+    items: list[UserDetailResponse]
+    total: int
+    page: int
+    page_size: int
+    total_pages: int

@@ -1,2 +1,6 @@
 export { Dashboard } from './Dashboard'
 export { MemberList, MemberForm, MemberDetail } from './members'
+export { CellList, CellForm, CellDetail } from './cells'
+export { EventList, EventForm, EventDetail, EventAttendance } from './events'
+export { AttendanceReports } from './attendance'
+export { UserList } from './users'

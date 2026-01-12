@@ -14,7 +14,21 @@ import { Login, Register, ForgotPassword, ResetPassword } from '@/pages/auth'
 import { Home, About, Contact, Events, Sermons, PrayerWall } from '@/pages/public'
 
 // Admin Pages
-import { Dashboard, MemberList, MemberForm, MemberDetail } from '@/pages/admin'
+import {
+  Dashboard,
+  MemberList,
+  MemberForm,
+  MemberDetail,
+  CellList,
+  CellForm,
+  CellDetail,
+  EventList,
+  EventForm,
+  EventDetail,
+  EventAttendance,
+  AttendanceReports,
+  UserList,
+} from '@/pages/admin'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -110,10 +124,26 @@ function AppRoutes() {
         }
       >
         <Route index element={<Dashboard />} />
+        {/* Members */}
         <Route path="members" element={<MemberList />} />
         <Route path="members/new" element={<MemberForm />} />
         <Route path="members/:id" element={<MemberDetail />} />
         <Route path="members/:id/edit" element={<MemberForm />} />
+        {/* Cells */}
+        <Route path="cells" element={<CellList />} />
+        <Route path="cells/new" element={<CellForm />} />
+        <Route path="cells/:id" element={<CellDetail />} />
+        <Route path="cells/:id/edit" element={<CellForm />} />
+        {/* Events */}
+        <Route path="events" element={<EventList />} />
+        <Route path="events/new" element={<EventForm />} />
+        <Route path="events/:id" element={<EventDetail />} />
+        <Route path="events/:id/edit" element={<EventForm />} />
+        <Route path="events/:id/attendance" element={<EventAttendance />} />
+        {/* Attendance Reports */}
+        <Route path="attendance/reports" element={<AttendanceReports />} />
+        {/* User Management (Admin Only) */}
+        <Route path="users" element={<UserList />} />
       </Route>
 
       {/* Catch all - redirect to home */}

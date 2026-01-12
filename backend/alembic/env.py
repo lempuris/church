@@ -10,12 +10,26 @@ from alembic import context
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.core.database import Base
-from app.models import FamilyRelationship, Member, RefreshToken, User  # noqa: F401
+from app.models import (  # noqa: F401
+    Attendance,
+    Cell,
+    CellMember,
+    Event,
+    FamilyRelationship,
+    Member,
+    RefreshToken,
+    User,
+)
 
 config = context.config
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
+# Load DATABASE_URL from environment variable (secure - no hardcoded credentials)
+database_url = os.environ.get("DATABASE_URL")
+if database_url:
+    config.set_main_option("sqlalchemy.url", database_url)
 
 target_metadata = Base.metadata
 

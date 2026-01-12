@@ -1,7 +1,8 @@
 import hashlib
 from datetime import datetime, timedelta, timezone
+from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
@@ -15,7 +16,7 @@ from app.core.security import (
     verify_password_reset_token,
 )
 from app.models import Member, RefreshToken, User
-from app.schemas import UserCreate
+from app.schemas import UserCreate, UserUpdate
 
 
 class AuthService:
@@ -140,6 +141,78 @@ class AuthService:
         user.password_hash = get_password_hash(new_password)
         self.db.commit()
         return True
+
+    # Admin user management methods
+    def get_users(
+        self,
+        page: int = 1,
+        page_size: int = 20,
+        role: str | None = None,
+        is_active: bool | None = None,
+        search: str | None = None,
+    ) -> tuple[list[User], int]:
+        """Get paginated list of users with optional filters."""
+        stmt = select(User)
+
+        if role:
+            stmt = stmt.where(User.role == role)
+
+        if is_active is not None:
+            stmt = stmt.where(User.is_active == is_active)
+
+        if search:
+            search_pattern = f"%{search}%"
+            stmt = stmt.where(User.email.ilike(search_pattern))
+
+        # Get total count
+        count_stmt = select(func.count()).select_from(stmt.subquery())
+        total = self.db.execute(count_stmt).scalar() or 0
+
+        # Order and paginate
+        stmt = stmt.order_by(User.created_at.desc())
+        offset = (page - 1) * page_size
+        stmt = stmt.offset(offset).limit(page_size)
+
+        users = list(self.db.execute(stmt).scalars().all())
+        return users, total
+
+    def update_user(self, user_id: UUID, user_data: UserUpdate) -> User | None:
+        """Update user details (role, active status, etc.)."""
+        stmt = select(User).where(User.id == user_id)
+        user = self.db.execute(stmt).scalar_one_or_none()
+
+        if not user:
+            return None
+
+        update_dict = user_data.model_dump(exclude_unset=True)
+        for field, value in update_dict.items():
+            setattr(user, field, value)
+
+        self.db.commit()
+        self.db.refresh(user)
+        return user
+
+    def delete_user(self, user_id: UUID) -> bool:
+        """Delete a user and their associated data."""
+        stmt = select(User).where(User.id == user_id)
+        user = self.db.execute(stmt).scalar_one_or_none()
+
+        if not user:
+            return False
+
+        # Delete associated member profile if exists
+        if user.member:
+            self.db.delete(user.member)
+
+        self.db.delete(user)
+        self.db.commit()
+        return True
+
+    def get_user_count_by_role(self) -> dict[str, int]:
+        """Get count of users by role for dashboard stats."""
+        stmt = select(User.role, func.count(User.id)).group_by(User.role)
+        results = self.db.execute(stmt).all()
+        return dict(results)
 
 
 def get_auth_service(db: Session) -> AuthService:

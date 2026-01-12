@@ -1,26 +1,32 @@
 @import "tailwindcss";
 
 @theme {
+  /* These are default values - they get overridden by JavaScript theme system */
   --color-background: #ffffff;
-  --color-foreground: #0a0a0a;
+  --color-foreground: #1c1917;
   --color-card: #ffffff;
-  --color-card-foreground: #0a0a0a;
+  --color-card-foreground: #1c1917;
   --color-popover: #ffffff;
-  --color-popover-foreground: #0a0a0a;
-  --color-primary: #1e40af;
+  --color-popover-foreground: #1c1917;
+  --color-primary: #d97706;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #f1f5f9;
-  --color-secondary-foreground: #0f172a;
-  --color-muted: #f1f5f9;
-  --color-muted-foreground: #64748b;
-  --color-accent: #f1f5f9;
-  --color-accent-foreground: #0f172a;
-  --color-destructive: #ef4444;
+  --color-secondary: #fef3c7;
+  --color-secondary-foreground: #92400e;
+  --color-muted: #f5f5f4;
+  --color-muted-foreground: #78716c;
+  --color-accent: #fef3c7;
+  --color-accent-foreground: #92400e;
+  --color-destructive: #dc2626;
   --color-destructive-foreground: #ffffff;
-  --color-border: #e2e8f0;
-  --color-input: #e2e8f0;
-  --color-ring: #1e40af;
-  --radius: 0.5rem;
+  --color-border: #e7e5e4;
+  --color-input: #e7e5e4;
+  --color-ring: #d97706;
+  --radius: 0.625rem;
+  
+  /* Theme gradient colors */
+  --gradient-from: #d97706;
+  --gradient-via: #ea580c;
+  --gradient-to: #e11d48;
 }
 
 @layer base {
