@@ -11,7 +11,7 @@ import { AdminLayout, PublicLayout } from '@/components/layouts'
 import { Login, Register, ForgotPassword, ResetPassword } from '@/pages/auth'
 
 // Public Pages
-import { Home, Events, Sermons, PrayerWall } from '@/pages/public'
+import { Home, About, Contact, Events, Sermons, PrayerWall } from '@/pages/public'
 
 // Admin Pages
 import { Dashboard, MemberList, MemberForm, MemberDetail } from '@/pages/admin'
@@ -73,6 +73,8 @@ function AppRoutes() {
       {/* Public Routes */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/events" element={<Events />} />
         <Route path="/sermons" element={<Sermons />} />
         <Route path="/prayer-wall" element={<PrayerWall />} />

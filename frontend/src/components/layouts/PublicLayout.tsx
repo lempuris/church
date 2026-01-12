@@ -8,9 +8,11 @@ import { useAuthStore } from '@/store/auth'
 
 const navigation = [
   { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
   { name: 'Events', href: '/events' },
   { name: 'Sermons', href: '/sermons' },
   { name: 'Prayer Wall', href: '/prayer-wall' },
+  { name: 'Contact', href: '/contact' },
 ]
 
 export function PublicLayout() {
