@@ -1,4 +1,4 @@
-from app.models.user import User, RefreshToken
-from app.models.member import Member, FamilyRelationship
+from app.models.member import FamilyRelationship, Member
+from app.models.user import RefreshToken, User
 
 __all__ = ["User", "RefreshToken", "Member", "FamilyRelationship"]

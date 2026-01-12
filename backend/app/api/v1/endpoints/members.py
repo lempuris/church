@@ -1,23 +1,22 @@
 from typing import Annotated, Literal
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
 from app.api.v1.deps import get_current_user, require_leader_or_above
+from app.core.database import get_db
 from app.models import User
 from app.schemas import (
-    MemberCreate,
-    MemberUpdate,
-    MemberResponse,
-    MemberListResponse,
-    FamilyRelationshipCreate,
     FamilyMemberResponse,
+    FamilyRelationshipCreate,
+    MemberCreate,
+    MemberListResponse,
+    MemberResponse,
+    MemberUpdate,
     PhotoUploadResponse,
 )
 from app.services import get_member_service
-
 
 router = APIRouter(prefix="/members", tags=["members"])
 

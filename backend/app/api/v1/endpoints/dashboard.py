@@ -3,12 +3,11 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
 from app.api.v1.deps import get_current_user
+from app.core.database import get_db
 from app.models import User
-from app.schemas import DashboardStats, RecentMembersResponse, RecentMember
+from app.schemas import DashboardStats, RecentMember, RecentMembersResponse
 from app.services import get_dashboard_service
-
 
 router = APIRouter(prefix="/dashboard", tags=["dashboard"])
 

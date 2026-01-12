@@ -1,8 +1,9 @@
-from datetime import datetime, date
-from uuid import UUID
-from typing import Literal
-from pydantic import BaseModel, EmailStr, field_validator
 import re
+from datetime import date, datetime
+from typing import Literal
+from uuid import UUID
+
+from pydantic import BaseModel, EmailStr, field_validator
 
 
 class MemberBase(BaseModel):

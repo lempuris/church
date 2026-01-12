@@ -1,7 +1,7 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
-from sqlalchemy import select, func
 
 from app.models import Member
 
