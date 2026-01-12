@@ -21,7 +21,9 @@ from app.services import get_auth_service
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-@router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED
+)
 def register(
     user_data: UserCreate,
     db: Annotated[Session, Depends(get_db)],

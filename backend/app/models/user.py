@@ -13,7 +13,9 @@ class User(Base):
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
-    email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
+    email: Mapped[str] = mapped_column(
+        String(255), unique=True, nullable=False, index=True
+    )
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     role: Mapped[str] = mapped_column(String(50), nullable=False, default="member")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
@@ -28,7 +30,9 @@ class User(Base):
     refresh_tokens: Mapped[list["RefreshToken"]] = relationship(
         "RefreshToken", back_populates="user", cascade="all, delete-orphan"
     )
-    member: Mapped["Member"] = relationship("Member", back_populates="user", uselist=False)
+    member: Mapped["Member"] = relationship(
+        "Member", back_populates="user", uselist=False
+    )
 
 
 class RefreshToken(Base):

@@ -157,7 +157,11 @@ def get_member_family(
     return family
 
 
-@router.post("/{member_id}/family", response_model=FamilyMemberResponse, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/{member_id}/family",
+    response_model=FamilyMemberResponse,
+    status_code=status.HTTP_201_CREATED,
+)
 def add_family_relationship(
     member_id: UUID,
     relationship_data: FamilyRelationshipCreate,
@@ -175,7 +179,9 @@ def add_family_relationship(
             detail="Member not found",
         )
 
-    related_member = member_service.get_member_by_id(relationship_data.related_member_id)
+    related_member = member_service.get_member_by_id(
+        relationship_data.related_member_id
+    )
     if not related_member:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -208,7 +214,9 @@ def add_family_relationship(
         )
 
 
-@router.delete("/{member_id}/family/{relationship_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete(
+    "/{member_id}/family/{relationship_id}", status_code=status.HTTP_204_NO_CONTENT
+)
 def remove_family_relationship(
     member_id: UUID,
     relationship_id: UUID,
