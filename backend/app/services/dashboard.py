@@ -12,17 +12,27 @@ class DashboardService:
 
     def get_stats(self) -> dict:
         # Total active members
-        total_members = self.db.execute(
-            select(func.count()).select_from(Member).where(Member.member_status == "active")
-        ).scalar() or 0
+        total_members = (
+            self.db.execute(
+                select(func.count())
+                .select_from(Member)
+                .where(Member.member_status == "active")
+            ).scalar()
+            or 0
+        )
 
         # New members this month
-        first_of_month = datetime.utcnow().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-        new_members = self.db.execute(
-            select(func.count())
-            .select_from(Member)
-            .where(Member.created_at >= first_of_month)
-        ).scalar() or 0
+        first_of_month = datetime.utcnow().replace(
+            day=1, hour=0, minute=0, second=0, microsecond=0
+        )
+        new_members = (
+            self.db.execute(
+                select(func.count())
+                .select_from(Member)
+                .where(Member.created_at >= first_of_month)
+            ).scalar()
+            or 0
+        )
 
         # Placeholder for cells and events (Phase 2)
         active_cells = 0

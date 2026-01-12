@@ -93,7 +93,9 @@ class MemberService:
         self.db.refresh(member)
         return member
 
-    def update_member(self, member_id: UUID, member_data: MemberUpdate) -> Member | None:
+    def update_member(
+        self, member_id: UUID, member_data: MemberUpdate
+    ) -> Member | None:
         member = self.get_member_by_id(member_id)
         if not member:
             return None
@@ -127,9 +129,8 @@ class MemberService:
         return member
 
     def get_family_relationships(self, member_id: UUID) -> list[dict]:
-        stmt = (
-            select(FamilyRelationship)
-            .where(FamilyRelationship.member_id == member_id)
+        stmt = select(FamilyRelationship).where(
+            FamilyRelationship.member_id == member_id
         )
         relationships = self.db.execute(stmt).scalars().all()
 
@@ -137,14 +138,16 @@ class MemberService:
         for rel in relationships:
             related = self.get_member_by_id(rel.related_member_id)
             if related:
-                family.append({
-                    "id": rel.id,
-                    "first_name": related.first_name,
-                    "last_name": related.last_name,
-                    "photo_url": related.photo_url,
-                    "relationship_type": rel.relationship_type,
-                    "member_id": related.id,
-                })
+                family.append(
+                    {
+                        "id": rel.id,
+                        "first_name": related.first_name,
+                        "last_name": related.last_name,
+                        "photo_url": related.photo_url,
+                        "relationship_type": rel.relationship_type,
+                        "member_id": related.id,
+                    }
+                )
         return family
 
     def add_family_relationship(
@@ -162,7 +165,9 @@ class MemberService:
         self.db.add(relationship)
 
         # Create reciprocal relationship
-        reciprocal_type = RECIPROCAL_RELATIONSHIPS.get(relationship_type, relationship_type)
+        reciprocal_type = RECIPROCAL_RELATIONSHIPS.get(
+            relationship_type, relationship_type
+        )
         reciprocal = FamilyRelationship(
             member_id=related_member_id,
             related_member_id=member_id,
@@ -174,7 +179,9 @@ class MemberService:
         self.db.refresh(relationship)
         return relationship
 
-    def remove_family_relationship(self, member_id: UUID, relationship_id: UUID) -> bool:
+    def remove_family_relationship(
+        self, member_id: UUID, relationship_id: UUID
+    ) -> bool:
         # Get the relationship
         stmt = select(FamilyRelationship).where(
             FamilyRelationship.id == relationship_id,

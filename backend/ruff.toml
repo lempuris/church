@@ -1,5 +1,8 @@
 # Ruff configuration for Church Management System Backend
 
+# Line length
+line-length = 88
+
 [lint]
 # Enable common linting rules
 select = [
@@ -26,5 +29,3 @@ ignore = [
 quote-style = "double"
 # Indent with spaces
 indent-style = "space"
-# Line length
-line-length = 88

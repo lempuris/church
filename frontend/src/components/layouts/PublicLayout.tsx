@@ -153,7 +153,7 @@ export function PublicLayout() {
               <h4 className="font-semibold mb-4">Contact</h4>
               <ul className="text-sm text-muted-foreground space-y-2">
                 <li>123 Church Street</li>
-                <li>Nairobi, Kenya</li>
+                <li>Pretoria, South Africa</li>
                 <li>info@gracechurch.com</li>
                 <li>+254 700 000 000</li>
               </ul>
