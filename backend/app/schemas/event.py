@@ -109,7 +109,6 @@ class QRCodeResponse(BaseModel):
 
 class QRVerifyRequest(BaseModel):
     qr_token: str
-    member_id: UUID
 
 
 class QRVerifyResponse(BaseModel):

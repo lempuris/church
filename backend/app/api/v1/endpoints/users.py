@@ -41,7 +41,7 @@ def list_users(
         search=search,
     )
 
-    total_pages = (total + page_size - 1) // page_size
+    total_pages = (total + page_size - 1) // page_size if total > 0 else 1
 
     return UserListResponse(
         items=[UserDetailResponse.model_validate(u) for u in users],

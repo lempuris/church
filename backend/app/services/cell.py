@@ -226,12 +226,16 @@ class CellService:
         return True
 
     def get_cell_by_leader(self, member_id: UUID) -> Cell | None:
-        """Get the cell where the member is a leader or assistant leader."""
+        """Get a cell where the member is a leader or assistant leader.
+
+        Note: A member may lead multiple cells. This returns the first one found.
+        If you need all cells led by a member, use a different method.
+        """
         stmt = select(Cell).where(
             Cell.is_active == True,  # noqa: E712
             (Cell.leader_id == member_id) | (Cell.assistant_leader_id == member_id),
         )
-        return self.db.execute(stmt).scalar_one_or_none()
+        return self.db.execute(stmt).scalars().first()
 
     def get_cell_by_user_id(self, user_id: UUID) -> Cell | None:
         """Get the cell for a user (through their member record)."""

@@ -1,5 +1,7 @@
+import re
 from datetime import datetime
 from typing import Annotated
+from urllib.parse import quote
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -261,12 +263,21 @@ def export_attendance(
             detail="Event not found",
         )
 
-    filename = f"attendance_{event.title.replace(' ', '_')}_{event.start_datetime.strftime('%Y%m%d')}.csv"
+    # Sanitize filename: remove any characters that could cause header injection
+    # or malformed downloads (keep only alphanumeric, underscore, hyphen)
+    safe_title = re.sub(r"[^a-zA-Z0-9_\-]", "_", event.title)
+    # Collapse multiple underscores and trim
+    safe_title = re.sub(r"_+", "_", safe_title).strip("_")
+    filename = f"attendance_{safe_title}_{event.start_datetime.strftime('%Y%m%d')}.csv"
+    # Use RFC 6266 compliant encoding for the filename
+    encoded_filename = quote(filename)
 
     return StreamingResponse(
         iter([csv_content]),
         media_type="text/csv",
-        headers={"Content-Disposition": f"attachment; filename={filename}"},
+        headers={
+            "Content-Disposition": f"attachment; filename=\"{filename}\"; filename*=UTF-8''{encoded_filename}"
+        },
     )
 
 
