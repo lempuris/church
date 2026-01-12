@@ -1,10 +1,36 @@
+export type UserRole = 'admin' | 'pastor' | 'leader' | 'member'
+
 export interface User {
   id: string
   email: string
-  role: 'admin' | 'pastor' | 'leader' | 'member'
+  role: UserRole
   is_active: boolean
   is_verified: boolean
   created_at: string
+}
+
+export interface UserDetail extends User {
+  last_login_at: string | null
+  updated_at: string
+}
+
+export interface UserListResponse {
+  items: UserDetail[]
+  total: number
+  page: number
+  page_size: number
+  total_pages: number
+}
+
+export interface UserUpdate {
+  role?: UserRole
+  is_active?: boolean
+  is_verified?: boolean
+}
+
+export interface UserStats {
+  total_users: number
+  by_role: Record<string, number>
 }
 
 export interface AuthTokens {

@@ -223,6 +223,11 @@ def add_cell_member(
 
     # Get member info
     member = db.query(Member).filter(Member.id == member_data.member_id).first()
+    if not member:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Member not found",
+        )
     return CellMemberInfo(
         id=member.id,
         first_name=member.first_name,

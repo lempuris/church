@@ -27,6 +27,7 @@ import {
   EventDetail,
   EventAttendance,
   AttendanceReports,
+  UserList,
 } from '@/pages/admin'
 
 const queryClient = new QueryClient({
@@ -141,6 +142,8 @@ function AppRoutes() {
         <Route path="events/:id/attendance" element={<EventAttendance />} />
         {/* Attendance Reports */}
         <Route path="attendance/reports" element={<AttendanceReports />} />
+        {/* User Management (Admin Only) */}
+        <Route path="users" element={<UserList />} />
       </Route>
 
       {/* Catch all - redirect to home */}

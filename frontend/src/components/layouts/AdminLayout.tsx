@@ -14,6 +14,7 @@ import {
   X,
   LogOut,
   ChevronDown,
+  ShieldCheck,
 } from 'lucide-react'
 
 // Button import removed - using native elements
@@ -26,6 +27,7 @@ const navigation = [
   { name: 'Cells', href: '/admin/cells', icon: Users2 },
   { name: 'Events', href: '/admin/events', icon: Calendar },
   { name: 'Attendance Reports', href: '/admin/attendance/reports', icon: BarChart3 },
+  { name: 'User Management', href: '/admin/users', icon: ShieldCheck, adminOnly: true },
   { name: 'Sermons', href: '/admin/sermons', icon: BookOpen, placeholder: true },
   { name: 'Prayer Requests', href: '/admin/prayer-requests', icon: HandHeart, placeholder: true },
   { name: 'Testimonies', href: '/admin/testimonies', icon: MessageSquare, placeholder: true },
@@ -72,34 +74,36 @@ export function AdminLayout() {
           </button>
         </div>
         <nav className="p-4 space-y-1">
-          {navigation.map((item) => {
-            const isActive = location.pathname === item.href
-            return (
-              <Link
-                key={item.name}
-                to={item.placeholder ? '#' : item.href}
-                className={cn(
-                  'flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors',
-                  isActive
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-                  item.placeholder && 'opacity-50 cursor-not-allowed'
-                )}
-                onClick={(e) => {
-                  if (item.placeholder) {
-                    e.preventDefault()
-                  }
-                  setSidebarOpen(false)
-                }}
-              >
-                <item.icon size={20} />
-                {item.name}
-                {item.placeholder && (
-                  <span className="ml-auto text-xs bg-muted px-1.5 py-0.5 rounded">Soon</span>
-                )}
-              </Link>
-            )
-          })}
+          {navigation
+            .filter((item) => !item.adminOnly || user?.role === 'admin')
+            .map((item) => {
+              const isActive = location.pathname === item.href
+              return (
+                <Link
+                  key={item.name}
+                  to={item.placeholder ? '#' : item.href}
+                  className={cn(
+                    'flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                    isActive
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                    item.placeholder && 'opacity-50 cursor-not-allowed'
+                  )}
+                  onClick={(e) => {
+                    if (item.placeholder) {
+                      e.preventDefault()
+                    }
+                    setSidebarOpen(false)
+                  }}
+                >
+                  <item.icon size={20} />
+                  {item.name}
+                  {item.placeholder && (
+                    <span className="ml-auto text-xs bg-muted px-1.5 py-0.5 rounded">Soon</span>
+                  )}
+                </Link>
+              )
+            })}
         </nav>
       </aside>
 

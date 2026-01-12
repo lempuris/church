@@ -58,6 +58,11 @@ def check_in_member(
 
     # Get member info
     member = db.query(Member).filter(Member.id == attendance.member_id).first()
+    if not member:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Member not found",
+        )
     return AttendanceResponse(
         id=attendance.id,
         event_id=attendance.event_id,

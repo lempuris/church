@@ -1,6 +1,14 @@
 from fastapi import APIRouter
 
-from app.api.v1.endpoints import attendance, auth, cells, dashboard, events, members
+from app.api.v1.endpoints import (
+    attendance,
+    auth,
+    cells,
+    dashboard,
+    events,
+    members,
+    users,
+)
 
 api_router = APIRouter()
 
@@ -10,3 +18,4 @@ api_router.include_router(dashboard.router)
 api_router.include_router(cells.router)
 api_router.include_router(events.router)
 api_router.include_router(attendance.router)
+api_router.include_router(users.router)
