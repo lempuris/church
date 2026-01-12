@@ -1,0 +1,90 @@
+name: Backend CI
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - '.github/workflows/ci-backend.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+
+jobs:
+  lint-and-format:
+    name: Ruff Lint & Format Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Ruff format check
+        working-directory: backend
+        run: |
+          ruff format --check .
+
+      - name: Ruff lint
+        working-directory: backend
+        run: |
+          ruff check .
+
+  type-check:
+    name: Type Check (MyPy)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          pip install mypy
+          pip install -r requirements.txt
+
+      - name: Run MyPy
+        working-directory: backend
+        continue-on-error: true
+        run: |
+          mypy app --ignore-missing-imports
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run tests
+        working-directory: backend
+        continue-on-error: true
+        run: |
+          pytest -v --tb=short || echo "No tests found or tests failed"

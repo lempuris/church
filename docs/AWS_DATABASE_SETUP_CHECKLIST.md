@@ -375,14 +375,24 @@ aws rds create-db-snapshot \
 
 ## Checklist Summary
 
-- [ ] **Phase 1**: Configure AWS CLI with valid credentials
-- [ ] **Phase 2**: Set up VPC, subnets, IGW, route tables, security group
-- [ ] **Phase 3**: Create RDS PostgreSQL instance
-- [ ] **Phase 4**: Store credentials in Secrets Manager
-- [ ] **Phase 5**: Update application configuration (.env, config.py, database.py)
-- [ ] **Phase 6**: Run Alembic migrations against AWS RDS
+- [x] **Phase 1**: Configure AWS CLI with valid credentials ✅ (Account: 176835474511)
+- [x] **Phase 2**: Set up VPC, subnets, IGW, route tables, security group ✅ (VPC: vpc-adee9bd7, SG: sg-0a2845eabe517acbf)
+- [x] **Phase 3**: Create RDS PostgreSQL instance ✅ (church-db, PostgreSQL 15.10, db.t3.micro)
+- [x] **Phase 4**: Store credentials in Secrets Manager ✅ (church-db-credentials)
+- [x] **Phase 5**: Update application configuration (.env, config.py, database.py) ✅
+- [x] **Phase 6**: Run Alembic migrations against AWS RDS ✅
 - [ ] **Phase 7**: Harden security (restrict IPs, enable SSL, encryption)
 - [ ] **Phase 8**: Set up monitoring and alarms
+
+### Deployed Resources
+| Resource | Value |
+|----------|-------|
+| RDS Endpoint | `church-db.cu3e0crp5ftt.us-east-1.rds.amazonaws.com` |
+| Database | `church_db` |
+| Username | `church_admin` |
+| VPC | `vpc-adee9bd7` |
+| Security Group | `sg-0a2845eabe517acbf` |
+| Secret ARN | `arn:aws:secretsmanager:us-east-1:176835474511:secret:church-db-credentials-o93lE8` |
 
 ---
 
