@@ -2,7 +2,6 @@
 Unit tests for authentication service and endpoints.
 """
 
-
 from app.core.security import (
     create_access_token,
     create_password_reset_token,
