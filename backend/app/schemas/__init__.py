@@ -1,7 +1,45 @@
+from app.schemas.attendance import (
+    AttendanceBulkCreate,
+    AttendanceCreate,
+    AttendanceExportRow,
+    AttendanceListResponse,
+    AttendanceResponse,
+    AttendanceSummaryReport,
+    AttendanceUpdate,
+    CellAttendanceComparison,
+    EventAttendanceSummary,
+    MemberAttendanceRecord,
+    MemberAttendanceReport,
+    MemberInfo,
+    SelfCheckInResponse,
+)
+from app.schemas.cell import (
+    CellCreate,
+    CellDetailResponse,
+    CellLeaderInfo,
+    CellListResponse,
+    CellMemberCreate,
+    CellMemberInfo,
+    CellMemberResponse,
+    CellResponse,
+    CellUpdate,
+)
 from app.schemas.dashboard import (
     DashboardStats,
     RecentMember,
     RecentMembersResponse,
+)
+from app.schemas.event import (
+    CalendarEventResponse,
+    EventCreate,
+    EventDetailResponse,
+    EventListResponse,
+    EventResponse,
+    EventUpdate,
+    QRCodeResponse,
+    QRVerifyRequest,
+    QRVerifyResponse,
+    RecurringEventUpdate,
 )
 from app.schemas.member import (
     FamilyMemberResponse,
@@ -24,6 +62,7 @@ from app.schemas.user import (
 )
 
 __all__ = [
+    # User schemas
     "UserCreate",
     "UserLogin",
     "UserResponse",
@@ -31,6 +70,7 @@ __all__ = [
     "TokenRefresh",
     "PasswordResetRequest",
     "PasswordReset",
+    # Member schemas
     "MemberCreate",
     "MemberUpdate",
     "MemberResponse",
@@ -39,7 +79,43 @@ __all__ = [
     "FamilyRelationshipResponse",
     "FamilyMemberResponse",
     "PhotoUploadResponse",
+    # Dashboard schemas
     "DashboardStats",
     "RecentMember",
     "RecentMembersResponse",
+    # Cell schemas
+    "CellCreate",
+    "CellUpdate",
+    "CellResponse",
+    "CellListResponse",
+    "CellDetailResponse",
+    "CellMemberCreate",
+    "CellMemberResponse",
+    "CellMemberInfo",
+    "CellLeaderInfo",
+    # Event schemas
+    "EventCreate",
+    "EventUpdate",
+    "EventResponse",
+    "EventListResponse",
+    "EventDetailResponse",
+    "CalendarEventResponse",
+    "RecurringEventUpdate",
+    "QRCodeResponse",
+    "QRVerifyRequest",
+    "QRVerifyResponse",
+    # Attendance schemas
+    "AttendanceCreate",
+    "AttendanceBulkCreate",
+    "AttendanceResponse",
+    "AttendanceListResponse",
+    "AttendanceUpdate",
+    "SelfCheckInResponse",
+    "MemberInfo",
+    "MemberAttendanceRecord",
+    "MemberAttendanceReport",
+    "EventAttendanceSummary",
+    "AttendanceSummaryReport",
+    "CellAttendanceComparison",
+    "AttendanceExportRow",
 ]

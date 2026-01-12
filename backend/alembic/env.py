@@ -10,7 +10,16 @@ from alembic import context
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.core.database import Base
-from app.models import FamilyRelationship, Member, RefreshToken, User  # noqa: F401
+from app.models import (  # noqa: F401
+    FamilyRelationship,
+    Member,
+    RefreshToken,
+    User,
+    Cell,
+    CellMember,
+    Event,
+    Attendance,
+)
 
 config = context.config
 

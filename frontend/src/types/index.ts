@@ -106,3 +106,233 @@ export type MemberUpdate = Partial<MemberCreate>
 export interface ApiError {
   detail: string | { msg: string; loc: string[] }[]
 }
+
+// Cell Types
+export type MeetingDay =
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday'
+  | 'sunday'
+
+export interface CellLeaderInfo {
+  id: string
+  first_name: string
+  last_name: string
+  photo_url: string | null
+}
+
+export interface CellMemberInfo {
+  id: string
+  first_name: string
+  last_name: string
+  photo_url: string | null
+  email: string | null
+  phone: string | null
+}
+
+export interface Cell {
+  id: string
+  name: string
+  description: string | null
+  leader_id: string | null
+  assistant_leader_id: string | null
+  meeting_day: MeetingDay | null
+  meeting_time: string | null
+  meeting_location: string | null
+  is_active: boolean
+  created_at: string
+  updated_at: string
+  member_count: number
+  leader: CellLeaderInfo | null
+  assistant_leader: CellLeaderInfo | null
+}
+
+export interface CellDetail extends Cell {
+  members: CellMemberInfo[]
+}
+
+export interface CellListResponse {
+  items: Cell[]
+  total: number
+  page: number
+  page_size: number
+  total_pages: number
+}
+
+export interface CellCreate {
+  name: string
+  description?: string
+  leader_id?: string
+  assistant_leader_id?: string
+  meeting_day?: MeetingDay
+  meeting_time?: string
+  meeting_location?: string
+}
+
+export type CellUpdate = Partial<CellCreate>
+
+// Event Types
+export type EventType = 'service' | 'cell_meeting' | 'conference' | 'special' | 'other'
+export type RecurrenceRule = 'weekly' | 'biweekly' | 'monthly'
+
+export interface Event {
+  id: string
+  title: string
+  description: string | null
+  event_type: EventType
+  start_datetime: string
+  end_datetime: string | null
+  location: string | null
+  capacity: number | null
+  is_recurring: boolean
+  recurrence_rule: RecurrenceRule | null
+  parent_event_id: string | null
+  is_public: boolean
+  allow_self_checkin: boolean
+  qr_code_token: string | null
+  is_cancelled: boolean
+  created_by: string | null
+  created_at: string
+  updated_at: string
+  attendance_count: number
+}
+
+export interface EventListResponse {
+  items: Event[]
+  total: number
+  page: number
+  page_size: number
+  total_pages: number
+}
+
+export interface CalendarEvent {
+  id: string
+  title: string
+  event_type: EventType
+  start_datetime: string
+  end_datetime: string | null
+  is_cancelled: boolean
+  is_recurring: boolean
+}
+
+export interface EventCreate {
+  title: string
+  description?: string
+  event_type: EventType
+  start_datetime: string
+  end_datetime?: string
+  location?: string
+  capacity?: number
+  is_public?: boolean
+  allow_self_checkin?: boolean
+  is_recurring?: boolean
+  recurrence_rule?: RecurrenceRule
+}
+
+export type EventUpdate = Partial<Omit<EventCreate, 'is_recurring' | 'recurrence_rule'>>
+
+export interface QRCodeResponse {
+  event_id: string
+  qr_code_token: string
+  event_title: string
+}
+
+// Attendance Types
+export type CheckInMethod = 'manual' | 'self' | 'qr'
+
+export interface MemberInfo {
+  id: string
+  first_name: string
+  last_name: string
+  photo_url: string | null
+}
+
+export interface Attendance {
+  id: string
+  event_id: string
+  member_id: string
+  checked_in_at: string
+  check_in_method: CheckInMethod
+  checked_in_by: string | null
+  notes: string | null
+  member: MemberInfo
+}
+
+export interface AttendanceListResponse {
+  items: Attendance[]
+  total: number
+  event_id: string
+  event_title: string
+}
+
+export interface AttendanceCreate {
+  member_id: string
+  notes?: string
+}
+
+export interface AttendanceBulkCreate {
+  member_ids: string[]
+  notes?: string
+}
+
+export interface SelfCheckInResponse {
+  success: boolean
+  message: string
+  attendance_id: string | null
+}
+
+export interface QRVerifyRequest {
+  qr_token: string
+  member_id: string
+}
+
+export interface QRVerifyResponse {
+  success: boolean
+  message: string
+  attendance_id: string | null
+}
+
+// Report Types
+export interface MemberAttendanceRecord {
+  event_id: string
+  event_title: string
+  event_type: EventType
+  event_date: string
+  checked_in_at: string
+}
+
+export interface MemberAttendanceReport {
+  member_id: string
+  member_name: string
+  total_events_attended: number
+  attendance_records: MemberAttendanceRecord[]
+}
+
+export interface EventAttendanceSummary {
+  event_id: string
+  event_title: string
+  event_type: EventType
+  event_date: string
+  attendance_count: number
+  capacity: number | null
+}
+
+export interface AttendanceSummaryReport {
+  period_start: string
+  period_end: string
+  total_events: number
+  total_attendance: number
+  average_attendance: number
+  events: EventAttendanceSummary[]
+}
+
+export interface CellAttendanceComparison {
+  cell_id: string
+  cell_name: string
+  total_attendance: number
+  average_attendance: number
+  member_count: number
+}
