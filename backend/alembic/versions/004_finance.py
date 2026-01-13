@@ -37,7 +37,9 @@ def upgrade() -> None:
             "created_at", sa.DateTime(), server_default=sa.text("CURRENT_TIMESTAMP")
         ),
     )
-    op.create_index("ix_donation_categories_is_active", "donation_categories", ["is_active"])
+    op.create_index(
+        "ix_donation_categories_is_active", "donation_categories", ["is_active"]
+    )
 
     # Create donations table
     op.create_table(
@@ -118,7 +120,9 @@ def upgrade() -> None:
             "updated_at", sa.DateTime(), server_default=sa.text("CURRENT_TIMESTAMP")
         ),
     )
-    op.create_index("ix_recurring_donations_member_id", "recurring_donations", ["member_id"])
+    op.create_index(
+        "ix_recurring_donations_member_id", "recurring_donations", ["member_id"]
+    )
     op.create_index("ix_recurring_donations_status", "recurring_donations", ["status"])
 
     # Create payment_methods table
