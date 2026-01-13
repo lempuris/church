@@ -2,8 +2,16 @@ from app.services.attendance import AttendanceService, get_attendance_service
 from app.services.auth import AuthService, get_auth_service
 from app.services.cell import CellService, get_cell_service
 from app.services.dashboard import DashboardService, get_dashboard_service
+from app.services.donation import DonationService, get_donation_service
 from app.services.event import EventService, get_event_service
 from app.services.member import MemberService, get_member_service
+from app.services.payment_provider import (
+    PaymentNotConfiguredError,
+    PaymentProcessingError,
+    PaymentProvider,
+    PaymentProviderError,
+    get_payment_provider,
+)
 from app.services.prayer import PrayerService, get_prayer_service
 from app.services.sermon import SermonService, get_sermon_service
 from app.services.testimony import TestimonyService, get_testimony_service
@@ -27,4 +35,11 @@ __all__ = [
     "get_prayer_service",
     "TestimonyService",
     "get_testimony_service",
+    "DonationService",
+    "get_donation_service",
+    "PaymentProvider",
+    "PaymentProviderError",
+    "PaymentNotConfiguredError",
+    "PaymentProcessingError",
+    "get_payment_provider",
 ]

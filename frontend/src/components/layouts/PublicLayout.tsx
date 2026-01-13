@@ -14,6 +14,7 @@ const navigation = [
   { name: 'Sermons', href: '/sermons' },
   { name: 'Prayer Wall', href: '/prayer-wall' },
   { name: 'Testimonies', href: '/testimonies' },
+  { name: 'Give', href: '/give' },
   { name: 'Contact', href: '/contact' },
 ]
 

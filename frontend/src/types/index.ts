@@ -712,3 +712,176 @@ export interface TestimonyFeatureResponse {
   message: string
   is_featured: boolean
 }
+
+// Donation Types
+export type PaymentMethod = 'cash' | 'eft' | 'bank_transfer' | 'card' | 'snapscan'
+export type PaymentStatus = 'pending' | 'completed' | 'failed' | 'refunded'
+export type DonationFrequency = 'weekly' | 'monthly' | 'quarterly' | 'annually'
+
+export interface DonationCategory {
+  id: string
+  name: string
+  description: string | null
+  is_active: boolean
+  created_at: string
+  donation_count: number
+  total_amount: number
+}
+
+export interface DonationCategoryListResponse {
+  items: DonationCategory[]
+  total: number
+}
+
+export interface DonationCategoryCreate {
+  name: string
+  description?: string
+}
+
+export interface DonationCategoryUpdate {
+  name?: string
+  description?: string
+  is_active?: boolean
+}
+
+export interface DonorInfo {
+  id: string
+  first_name: string
+  last_name: string
+  email: string | null
+}
+
+export interface Donation {
+  id: string
+  member_id: string | null
+  donor_name: string | null
+  donor_email: string | null
+  category_id: string | null
+  category_name: string | null
+  amount: number
+  currency: string
+  payment_method: PaymentMethod | null
+  payment_status: PaymentStatus
+  transaction_reference: string | null
+  donation_date: string
+  notes: string | null
+  created_by: string | null
+  created_at: string
+  donor: DonorInfo | null
+}
+
+export interface DonationListResponse {
+  items: Donation[]
+  total: number
+  page: number
+  page_size: number
+  total_pages: number
+}
+
+export interface DonationCreate {
+  member_id?: string
+  donor_name?: string
+  donor_email?: string
+  category_id?: string
+  amount: number
+  currency?: string
+  payment_method?: PaymentMethod
+  transaction_reference?: string
+  donation_date: string
+  notes?: string
+}
+
+export type DonationUpdate = Partial<DonationCreate>
+
+// Donation Report Types
+export interface CategorySummary {
+  category_id: string | null
+  category_name: string
+  total_amount: number
+  donation_count: number
+  percentage: number
+}
+
+export interface FinancialSummaryReport {
+  period_start: string
+  period_end: string
+  total_donations: number
+  total_amount: number
+  currency: string
+  by_category: CategorySummary[]
+  by_payment_method: Record<string, number>
+}
+
+export interface MonthlyTrendItem {
+  month: string
+  total_amount: number
+  donation_count: number
+}
+
+export interface FinancialTrendReport {
+  period_start: string
+  period_end: string
+  trends: MonthlyTrendItem[]
+}
+
+export interface TopDonorItem {
+  member_id: string | null
+  donor_name: string
+  total_amount: number
+  donation_count: number
+}
+
+export interface TopDonorsReport {
+  period_start: string
+  period_end: string
+  top_donors: TopDonorItem[]
+}
+
+export interface DonorHistoryItem {
+  id: string
+  amount: number
+  currency: string
+  category_name: string | null
+  payment_method: string | null
+  donation_date: string
+  transaction_reference: string | null
+}
+
+export interface DonorHistoryResponse {
+  member_id: string | null
+  donor_name: string
+  donor_email: string | null
+  total_donations: number
+  total_amount: number
+  first_donation_date: string | null
+  last_donation_date: string | null
+  donations: DonorHistoryItem[]
+}
+
+export interface TaxStatementItem {
+  donation_id: string
+  amount: number
+  currency: string
+  category_name: string | null
+  donation_date: string
+  transaction_reference: string | null
+}
+
+export interface TaxStatementResponse {
+  year: number
+  donor_name: string
+  donor_email: string | null
+  member_id: string | null
+  total_amount: number
+  currency: string
+  donations: TaxStatementItem[]
+  generated_at: string
+}
+
+export interface PaymentProviderStatus {
+  provider: string
+  is_configured: boolean
+  is_enabled: boolean
+  supported_methods: string[]
+  message: string | null
+}

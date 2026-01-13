@@ -5,6 +5,7 @@ from app.api.v1.endpoints import (
     auth,
     cells,
     dashboard,
+    donations,
     events,
     members,
     prayers,
@@ -25,3 +26,4 @@ api_router.include_router(users.router)
 api_router.include_router(sermons.router)
 api_router.include_router(prayers.router)
 api_router.include_router(testimonies.router)
+api_router.include_router(donations.router)

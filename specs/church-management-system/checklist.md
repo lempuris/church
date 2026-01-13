@@ -375,24 +375,54 @@
 - [ ] Run full test suite
 - [ ] Manual testing of all features
 - [ ] Performance testing (media upload/streaming)
-- [ ] Code review
+- [x] Code review (Claude AI automated)
 - [ ] Update documentation
 - [ ] **Phase 3 Complete** ✓
 
 ---
 
-## Phase 4: Finance (Deferred)
+## Phase 4: Finance
 
-**Status:** Waiting for payment provider selection
+**Status:** Manual donations complete, online payments deferred
 
+### 4.1 Backend Finance
+- [x] Run migration 004 for finance tables
+- [x] Create DonationCategory model
+- [x] Create Donation model
+- [x] Create RecurringDonation model (placeholder for Stripe)
+- [x] Create PaymentMethod model (placeholder for Stripe)
+- [x] Create donation Pydantic schemas
+- [x] Create `/donations/categories` CRUD endpoints
+- [x] Create `/donations` CRUD endpoints with filtering
+- [x] Create `/donations/members/{id}/history` endpoint
+- [x] Create `/donations/reports/summary` endpoint
+- [x] Create `/donations/reports/trends` endpoint
+- [x] Create `/donations/reports/top-donors` endpoint (admin only)
+- [x] Create `/donations/reports/tax-statement/{id}` endpoint
+- [x] Create payment provider abstraction (stubbed Stripe)
+- [x] Create `/donations/payment/status` endpoint
+- [x] Create seed script for demo donations
+- [ ] Implement actual Stripe integration (when ready)
+- [ ] Write unit tests
+
+### 4.2 Frontend Finance
+- [x] Create Donation TypeScript types
+- [x] Create donation API service
+- [x] Create DonationList page with filters
+- [x] Create DonationForm page (create/edit)
+- [x] Create CategoryList page
+- [x] Create FinancialReports page with charts
+- [x] Add donations routes to App.tsx
+- [x] Add Finance section to admin navigation
+- [x] Create public online giving page with bank/SnapScan details
+- [ ] Create member giving portal (view own history)
+
+### 4.3 Phase 4 Finalization
 - [ ] Select payment provider(s)
 - [ ] Set up merchant accounts
-- [ ] Implement manual donation entry (interim)
-- [ ] Implement online donation form
-- [ ] Implement payment processing
-- [ ] Implement recurring donations
-- [ ] Implement financial reports
-- [ ] Implement tax statements
+- [ ] Configure Stripe webhooks
+- [ ] Run full test suite
+- [ ] Manual testing
 - [ ] **Phase 4 Complete** ✓
 
 ---
@@ -423,6 +453,7 @@
 - [x] Create GitHub Actions workflow for frontend
 - [x] Configure deployment on push to main
 - [x] Test full deployment pipeline
+- [x] Add Claude AI code review workflow
 
 ---
 
@@ -539,6 +570,51 @@ _Use this section to track decisions, blockers, and important notes during imple
     - Sermons: Grid view with search, series filter, sermon player modal (audio/video)
     - Prayer Wall: Public prayer requests, "I Prayed" button, submission form
     - Testimonies: Grid view with category filter, featured carousel, submission form
-  - Navigation updated: AdminLayout sidebar, PublicLayout navigation links
+  - Navigation updated: AdminLayout sidebar with "View Site" link, PublicLayout navigation
   - Routes configured in App.tsx for all new pages
+  - Created seed_phase3.py for demo data: 4 series, 10 sermons, 10 prayers, 8 testimonies
+  - Fixed Events.tsx to be fully theme-aware (CTA section, loading states)
   - Remaining: Unit tests, my prayer requests page, my testimonies page, CloudFront config
+
+- **Bug Fixes from Code Review** (Jan 13, 2026)
+  - auth.py: Fixed type inconsistency - get_user_by_id now uses UUID (not str)
+  - auth.py: Added safe UUID conversion from JWT subject string with try/except
+  - cells.py: Fixed schema mismatch - create_cell and update_cell now return CellDetailResponse
+  - alembic/env.py: Fixed E402 linting errors with noqa comments
+
+- **CI/CD Enhancements** (Jan 13, 2026)
+  - Added Claude AI code review workflow (.github/workflows/claude-code-review.yml)
+  - Automated PR reviews for security, performance, code quality, and bugs
+  - Reviews posted as PR comments with structured feedback
+  - Requires ANTHROPIC_API_KEY secret in GitHub repository settings
+
+- **Phase 4 Finance Implementation** (Jan 13, 2026)
+  - Created migration 004 for donation_categories, donations, recurring_donations, payment_methods tables
+  - SQLAlchemy models: DonationCategory, Donation, RecurringDonation, PaymentMethod
+  - Full donation service with CRUD, donor history, financial reports
+  - Payment provider abstraction with stubbed Stripe integration
+  - Backend endpoints:
+    - Categories: Full CRUD with donation stats
+    - Donations: Full CRUD with filtering (date, category, payment method, amount)
+    - Reports: Summary by category/method, monthly trends, top donors, tax statements
+    - Payment: Status check and payment intent creation (stubbed)
+  - Frontend TypeScript types for all finance entities
+  - Frontend API service: donations.ts with full endpoint coverage
+  - Admin pages:
+    - DonationList: Donation management with filters, pagination
+    - DonationForm: Record cash/EFT/SnapScan donations
+    - CategoryList: Manage donation categories with stats
+    - FinancialReports: Theme-aware charts for category breakdown, payment methods, trends
+  - Navigation updated: Admin sidebar with Donations, Financial Reports, Categories
+  - Created seed_donations.py with South African demo data (438 donations, ~R2M total)
+  - Currency: ZAR (South African Rand) - fully localized
+  - Payment methods: Cash, EFT, Bank Transfer, Card, SnapScan (SA context)
+  - Public Giving page (/give):
+    - Beautiful theme-aware UI with hero section
+    - Donation form with preset amounts (R100 - R5,000)
+    - Category selection, payment method choice
+    - Bank transfer details (FNB), SnapScan QR code info
+    - "Online payments coming soon" banner when Stripe not configured
+    - Recurring donation option
+  - Navigation updated with "Give" link
+  - Remaining: Stripe integration, unit tests, member giving portal

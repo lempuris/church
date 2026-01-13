@@ -32,6 +32,11 @@ class Settings(BaseSettings):
     # Frontend
     FRONTEND_URL: str = "http://localhost:5173"
 
+    # Stripe (Optional - for online payments)
+    STRIPE_API_KEY: str | None = None
+    STRIPE_WEBHOOK_SECRET: str | None = None
+    STRIPE_PUBLISHABLE_KEY: str | None = None
+
     class Config:
         env_file = ".env"
         case_sensitive = True
