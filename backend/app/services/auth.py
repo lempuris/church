@@ -27,7 +27,7 @@ class AuthService:
         stmt = select(User).where(User.email == email)
         return self.db.execute(stmt).scalar_one_or_none()
 
-    def get_user_by_id(self, user_id: str) -> User | None:
+    def get_user_by_id(self, user_id: UUID) -> User | None:
         stmt = select(User).where(User.id == user_id)
         return self.db.execute(stmt).scalar_one_or_none()
 
@@ -90,8 +90,13 @@ class AuthService:
         if not payload or payload.get("type") != "refresh":
             return None
 
-        user_id = payload.get("sub")
-        if not user_id:
+        user_id_str = payload.get("sub")
+        if not user_id_str:
+            return None
+
+        try:
+            user_id = UUID(user_id_str)
+        except ValueError:
             return None
 
         # Verify token exists in database
