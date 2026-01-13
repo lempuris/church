@@ -17,6 +17,9 @@ import {
   ShieldCheck,
   ExternalLink,
   Home,
+  Wallet,
+  PieChart,
+  Tags,
 } from 'lucide-react'
 
 // Button import removed - using native elements
@@ -32,6 +35,9 @@ const navigation = [
   { name: 'Sermons', href: '/admin/sermons', icon: BookOpen },
   { name: 'Prayer Requests', href: '/admin/prayer-requests', icon: HandHeart },
   { name: 'Testimonies', href: '/admin/testimonies', icon: MessageSquare },
+  { name: 'Donations', href: '/admin/donations', icon: Wallet },
+  { name: 'Financial Reports', href: '/admin/donations/reports', icon: PieChart },
+  { name: 'Donation Categories', href: '/admin/donations/categories', icon: Tags },
   { name: 'User Management', href: '/admin/users', icon: ShieldCheck, adminOnly: true },
   { name: 'Settings', href: '/admin/settings', icon: Settings, placeholder: true },
 ]

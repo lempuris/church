@@ -11,7 +11,7 @@ import { AdminLayout, PublicLayout } from '@/components/layouts'
 import { Login, Register, ForgotPassword, ResetPassword } from '@/pages/auth'
 
 // Public Pages
-import { Home, About, Contact, Events, Sermons, PrayerWall, Testimonies } from '@/pages/public'
+import { Home, About, Contact, Events, Sermons, PrayerWall, Testimonies, Giving } from '@/pages/public'
 
 // Admin Pages
 import {
@@ -34,6 +34,10 @@ import {
   SermonSeriesList,
   PrayerList,
   TestimonyList,
+  DonationList,
+  DonationForm,
+  CategoryList,
+  FinancialReports,
 } from '@/pages/admin'
 
 const queryClient = new QueryClient({
@@ -99,6 +103,7 @@ function AppRoutes() {
         <Route path="/sermons" element={<Sermons />} />
         <Route path="/prayer-wall" element={<PrayerWall />} />
         <Route path="/testimonies" element={<Testimonies />} />
+        <Route path="/give" element={<Giving />} />
       </Route>
 
       {/* Auth Routes */}
@@ -159,6 +164,13 @@ function AppRoutes() {
         <Route path="prayer-requests" element={<PrayerList />} />
         {/* Testimonies */}
         <Route path="testimonies" element={<TestimonyList />} />
+        {/* Donations & Finance */}
+        <Route path="donations" element={<DonationList />} />
+        <Route path="donations/new" element={<DonationForm />} />
+        <Route path="donations/categories" element={<CategoryList />} />
+        <Route path="donations/reports" element={<FinancialReports />} />
+        <Route path="donations/:id" element={<DonationForm />} />
+        <Route path="donations/:id/edit" element={<DonationForm />} />
         {/* User Management (Admin Only) */}
         <Route path="users" element={<UserList />} />
       </Route>

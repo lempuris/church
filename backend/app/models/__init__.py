@@ -7,6 +7,12 @@ from app.models.content import (
     Testimony,
 )
 from app.models.event import Attendance, Event
+from app.models.finance import (
+    Donation,
+    DonationCategory,
+    PaymentMethod,
+    RecurringDonation,
+)
 from app.models.member import FamilyRelationship, Member
 from app.models.user import RefreshToken, User
 
@@ -24,4 +30,8 @@ __all__ = [
     "PrayerRequest",
     "PrayerInteraction",
     "Testimony",
+    "DonationCategory",
+    "Donation",
+    "RecurringDonation",
+    "PaymentMethod",
 ]
