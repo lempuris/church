@@ -118,24 +118,36 @@ export function Events() {
       </section>
 
       {/* Events List */}
-      <section className="py-16 bg-gradient-to-br from-amber-50 to-white">
+      <section 
+        className="py-16"
+        style={{ 
+          background: `linear-gradient(to bottom right, ${theme.colors.muted}, ${theme.colors.background})` 
+        }}
+      >
         <div className="container mx-auto px-4">
           {isLoading && (
             <div className="flex flex-col items-center justify-center py-20">
-              <div className="h-12 w-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4" />
-              <p className="text-gray-600">Loading events...</p>
+              <div 
+                className="h-12 w-12 border-4 border-t-transparent rounded-full animate-spin mb-4" 
+                style={{ borderColor: theme.colors.primary, borderTopColor: 'transparent' }}
+              />
+              <p style={{ color: theme.colors.mutedForeground }}>Loading events...</p>
             </div>
           )}
 
           {error && (
-            <Card className="max-w-2xl mx-auto border-red-200">
+            <Card className="max-w-2xl mx-auto border-destructive/50">
               <CardContent className="flex flex-col items-center justify-center py-16">
-                <Calendar className="h-16 w-16 text-red-400 mb-4" />
-                <CardTitle className="mb-2 text-red-700">Unable to Load Events</CardTitle>
+                <Calendar className="h-16 w-16 text-destructive/70 mb-4" />
+                <CardTitle className="mb-2 text-destructive">Unable to Load Events</CardTitle>
                 <CardDescription className="text-center mb-4">
                   We couldn't load the events at this time. Please try again later.
                 </CardDescription>
-                <Button onClick={() => window.location.reload()} className="bg-amber-600 hover:bg-amber-700">
+                <Button 
+                  onClick={() => window.location.reload()} 
+                  className="text-white hover:opacity-90"
+                  style={{ backgroundColor: theme.colors.primary }}
+                >
                   Try Again
                 </Button>
               </CardContent>
@@ -143,10 +155,13 @@ export function Events() {
           )}
 
           {!isLoading && !error && events && events.length === 0 && (
-            <Card className="max-w-2xl mx-auto border-amber-200">
+            <Card 
+              className="max-w-2xl mx-auto"
+              style={{ borderColor: `${theme.colors.primary}40` }}
+            >
               <CardContent className="flex flex-col items-center justify-center py-16">
-                <Calendar className="h-16 w-16 text-amber-400 mb-4" />
-                <CardTitle className="mb-2 text-gray-800">No Upcoming Events</CardTitle>
+                <Calendar className="h-16 w-16 mb-4" style={{ color: theme.colors.primary }} />
+                <CardTitle className="mb-2" style={{ color: theme.colors.foreground }}>No Upcoming Events</CardTitle>
                 <CardDescription className="text-center text-base">
                   There are no scheduled events at the moment. Check back soon for 
                   upcoming church events and activities!
@@ -173,15 +188,32 @@ export function Events() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-white border-t border-amber-100">
+      <section 
+        className="py-16 border-t"
+        style={{ 
+          backgroundColor: theme.colors.background,
+          borderColor: theme.colors.border 
+        }}
+      >
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          <h2 
+            className="text-2xl font-bold mb-4"
+            style={{ color: theme.colors.foreground }}
+          >
             Want to stay updated?
           </h2>
-          <p className="text-gray-600 mb-6 max-w-xl mx-auto">
+          <p 
+            className="mb-6 max-w-xl mx-auto"
+            style={{ color: theme.colors.mutedForeground }}
+          >
             Create an account to receive event notifications and updates straight to your inbox.
           </p>
-          <Button size="lg" className="bg-amber-600 hover:bg-amber-700 font-bold">
+          <Button 
+            size="lg" 
+            className="font-bold text-white hover:opacity-90 transition-opacity"
+            style={{ backgroundColor: theme.colors.primary }}
+            onClick={() => window.location.href = '/register'}
+          >
             Join Our Community
           </Button>
         </div>

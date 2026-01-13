@@ -267,38 +267,38 @@
 ### 3.1 Sermon Management
 
 #### Backend Sermons
-- [ ] Run migration for sermon_series, sermons tables
-- [ ] Create SermonSeries model
-- [ ] Create Sermon model
-- [ ] Create sermon Pydantic schemas
-- [ ] Create `/sermons` GET endpoint (admin, all)
-- [ ] Create `/sermons` POST endpoint
-- [ ] Create `/sermons/{id}` GET endpoint
-- [ ] Create `/sermons/{id}` PUT endpoint
-- [ ] Create `/sermons/{id}` DELETE endpoint
-- [ ] Create `/sermons/{id}/upload` endpoint (presigned URL)
-- [ ] Create `PUT /sermons/{id}/publish` endpoint
-- [ ] Create `/sermons/public` endpoint
-- [ ] Create series CRUD endpoints
-- [ ] Implement view count increment
-- [ ] Implement search (title, speaker, scripture)
+- [x] Run migration for sermon_series, sermons tables
+- [x] Create SermonSeries model
+- [x] Create Sermon model
+- [x] Create sermon Pydantic schemas
+- [x] Create `/sermons` GET endpoint (admin, all)
+- [x] Create `/sermons` POST endpoint
+- [x] Create `/sermons/{id}` GET endpoint
+- [x] Create `/sermons/{id}` PUT endpoint
+- [x] Create `/sermons/{id}` DELETE endpoint
+- [x] Create `/sermons/{id}/upload` endpoint (presigned URL)
+- [x] Create `PUT /sermons/{id}/publish` endpoint
+- [x] Create `/sermons/public` endpoint
+- [x] Create series CRUD endpoints
+- [x] Implement view count increment
+- [x] Implement search (title, speaker, scripture)
 - [ ] Configure CloudFront for media streaming
 - [ ] Write unit tests
 
 #### Frontend Sermons
-- [ ] Create Sermon TypeScript types
-- [ ] Create sermon API service
-- [ ] Create Sermons list page (admin)
-- [ ] Create Sermon form
-- [ ] Create media upload component with progress
-- [ ] Create Series management page
-- [ ] Create public sermon listing page
-- [ ] Create sermon search and filters
-- [ ] Create Sermon player page
-- [ ] Create audio player component
-- [ ] Create video player component
-- [ ] Create download button
-- [ ] Create related sermons section
+- [x] Create Sermon TypeScript types
+- [x] Create sermon API service
+- [x] Create Sermons list page (admin)
+- [x] Create Sermon form
+- [x] Create media upload component with progress
+- [x] Create Series management page
+- [x] Create public sermon listing page
+- [x] Create sermon search and filters
+- [x] Create Sermon player page
+- [x] Create audio player component
+- [x] Create video player component
+- [x] Create download button
+- [x] Create related sermons section
 - [ ] Test media upload and playback
 
 ---
@@ -306,32 +306,32 @@
 ### 3.2 Prayer Requests
 
 #### Backend Prayer
-- [ ] Run migration for prayer_requests, prayer_interactions tables
-- [ ] Create PrayerRequest model
-- [ ] Create PrayerInteraction model
-- [ ] Create prayer request Pydantic schemas
-- [ ] Create `/prayer-requests` GET endpoint (public approved)
-- [ ] Create `/prayer-requests` POST endpoint
-- [ ] Create `/prayer-requests/{id}` GET endpoint
-- [ ] Create `/prayer-requests/{id}` PUT endpoint
-- [ ] Create `/prayer-requests/{id}` DELETE endpoint
-- [ ] Create `POST /prayer-requests/{id}/pray` endpoint
-- [ ] Create `PUT /prayer-requests/{id}/answered` endpoint
-- [ ] Create `/prayer-requests/my` endpoint
-- [ ] Create `/prayer-requests/pending` endpoint (admin)
-- [ ] Implement prayer count increment (no duplicates)
+- [x] Run migration for prayer_requests, prayer_interactions tables
+- [x] Create PrayerRequest model
+- [x] Create PrayerInteraction model
+- [x] Create prayer request Pydantic schemas
+- [x] Create `/prayer-requests` GET endpoint (public approved)
+- [x] Create `/prayer-requests` POST endpoint
+- [x] Create `/prayer-requests/{id}` GET endpoint
+- [x] Create `/prayer-requests/{id}` PUT endpoint
+- [x] Create `/prayer-requests/{id}` DELETE endpoint
+- [x] Create `POST /prayer-requests/{id}/pray` endpoint
+- [x] Create `PUT /prayer-requests/{id}/answered` endpoint
+- [x] Create `/prayer-requests/my` endpoint
+- [x] Create `/prayer-requests/pending` endpoint (admin)
+- [x] Implement prayer count increment (no duplicates)
 - [ ] Write unit tests
 
 #### Frontend Prayer
-- [ ] Create PrayerRequest TypeScript types
-- [ ] Create prayer request API service
-- [ ] Create prayer request submission form
-- [ ] Create prayer wall page
-- [ ] Create "I Prayed" button component
-- [ ] Create prayer count display
-- [ ] Create mark as answered flow
+- [x] Create PrayerRequest TypeScript types
+- [x] Create prayer request API service
+- [x] Create prayer request submission form
+- [x] Create prayer wall page
+- [x] Create "I Prayed" button component
+- [x] Create prayer count display
+- [x] Create mark as answered flow
 - [ ] Create my prayer requests page
-- [ ] Create admin moderation queue
+- [x] Create admin moderation queue
 - [ ] Test prayer request flow
 
 ---
@@ -339,33 +339,33 @@
 ### 3.3 Testimonies
 
 #### Backend Testimonies
-- [ ] Run migration for testimonies table
-- [ ] Create Testimony model
-- [ ] Create testimony Pydantic schemas
-- [ ] Create `/testimonies` GET endpoint (approved)
-- [ ] Create `/testimonies` POST endpoint
-- [ ] Create `/testimonies/{id}` GET endpoint
-- [ ] Create `/testimonies/{id}` PUT endpoint
-- [ ] Create `/testimonies/{id}` DELETE endpoint
-- [ ] Create `PUT /testimonies/{id}/approve` endpoint
-- [ ] Create `PUT /testimonies/{id}/feature` endpoint
-- [ ] Create `/testimonies/my` endpoint
-- [ ] Create `/testimonies/pending` endpoint
-- [ ] Create `/testimonies/featured` endpoint
-- [ ] Implement media upload for testimonies
+- [x] Run migration for testimonies table
+- [x] Create Testimony model
+- [x] Create testimony Pydantic schemas
+- [x] Create `/testimonies` GET endpoint (approved)
+- [x] Create `/testimonies` POST endpoint
+- [x] Create `/testimonies/{id}` GET endpoint
+- [x] Create `/testimonies/{id}` PUT endpoint
+- [x] Create `/testimonies/{id}` DELETE endpoint
+- [x] Create `PUT /testimonies/{id}/approve` endpoint
+- [x] Create `PUT /testimonies/{id}/feature` endpoint
+- [x] Create `/testimonies/my` endpoint
+- [x] Create `/testimonies/pending` endpoint
+- [x] Create `/testimonies/featured` endpoint
+- [x] Implement media upload for testimonies
 - [ ] Write unit tests
 
 #### Frontend Testimonies
-- [ ] Create Testimony TypeScript types
-- [ ] Create testimony API service
-- [ ] Create testimony submission form
-- [ ] Create media attachment upload
-- [ ] Create public testimonies listing
-- [ ] Create category filter
-- [ ] Create testimony detail page
+- [x] Create Testimony TypeScript types
+- [x] Create testimony API service
+- [x] Create testimony submission form
+- [x] Create media attachment upload
+- [x] Create public testimonies listing
+- [x] Create category filter
+- [x] Create testimony detail page
 - [ ] Create my testimonies page
-- [ ] Create admin approval queue
-- [ ] Create featured testimonies carousel (homepage)
+- [x] Create admin approval queue
+- [x] Create featured testimonies carousel (homepage)
 - [ ] Test testimony flow
 
 ---
@@ -517,3 +517,28 @@ _Use this section to track decisions, blockers, and important notes during imple
   - Cell groups: Soweto Young Adults, Sandton Families, Amadoda Okholo, etc.
   - Events: Sunday Services, Intsha Youth Night, Heritage Day, etc.
   - Database seeded: 52 members, 5 cells, 10 events, 81 attendance records
+
+- **Phase 3 Implementation** (Jan 13, 2026)
+  - Created migration 003 for sermon_series, sermons, prayer_requests, prayer_interactions, testimonies tables
+  - SQLAlchemy models: SermonSeries, Sermon, PrayerRequest, PrayerInteraction, Testimony
+  - Full backend services for sermons, prayers, testimonies with S3 presigned URL uploads
+  - Backend endpoints:
+    - Sermons: Full CRUD, series management, publish/unpublish, media upload, view tracking
+    - Prayer Requests: Submit, wall view, pray interaction, mark answered, admin moderation
+    - Testimonies: Submit, public listing, featured carousel, admin approval, media upload
+  - Frontend TypeScript types for all Phase 3 entities
+  - Frontend API services: sermons.ts, prayers.ts, testimonies.ts with full endpoint coverage
+  - Admin pages:
+    - SermonList: Admin sermon management with filters, publish toggle, media indicators
+    - SermonForm: Create/edit sermons with media upload progress
+    - SermonDetail: Full sermon details with player
+    - SermonSeriesList: Series management with thumbnail upload
+    - PrayerList: Admin moderation queue with approve/reject actions
+    - TestimonyList: Admin moderation with approve/reject/feature actions
+  - Public pages:
+    - Sermons: Grid view with search, series filter, sermon player modal (audio/video)
+    - Prayer Wall: Public prayer requests, "I Prayed" button, submission form
+    - Testimonies: Grid view with category filter, featured carousel, submission form
+  - Navigation updated: AdminLayout sidebar, PublicLayout navigation links
+  - Routes configured in App.tsx for all new pages
+  - Remaining: Unit tests, my prayer requests page, my testimonies page, CloudFront config

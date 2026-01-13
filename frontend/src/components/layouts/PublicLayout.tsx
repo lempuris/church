@@ -13,6 +13,7 @@ const navigation = [
   { name: 'Events', href: '/events' },
   { name: 'Sermons', href: '/sermons' },
   { name: 'Prayer Wall', href: '/prayer-wall' },
+  { name: 'Testimonies', href: '/testimonies' },
   { name: 'Contact', href: '/contact' },
 ]
 
