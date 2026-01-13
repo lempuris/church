@@ -2,6 +2,7 @@ import os
 import sys
 from logging.config import fileConfig
 
+from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 
 from alembic import context
@@ -9,15 +10,23 @@ from alembic import context
 # Add the parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from app.core.database import Base
-from app.models import (  # noqa: F401
+# Load environment variables from .env file
+load_dotenv()
+
+from app.core.database import Base  # noqa: E402
+from app.models import (  # noqa: E402, F401
     Attendance,
     Cell,
     CellMember,
     Event,
     FamilyRelationship,
     Member,
+    PrayerInteraction,
+    PrayerRequest,
     RefreshToken,
+    Sermon,
+    SermonSeries,
+    Testimony,
     User,
 )
 

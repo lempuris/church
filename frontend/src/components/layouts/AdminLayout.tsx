@@ -15,6 +15,8 @@ import {
   LogOut,
   ChevronDown,
   ShieldCheck,
+  ExternalLink,
+  Home,
 } from 'lucide-react'
 
 // Button import removed - using native elements
@@ -27,10 +29,10 @@ const navigation = [
   { name: 'Cells', href: '/admin/cells', icon: Users2 },
   { name: 'Events', href: '/admin/events', icon: Calendar },
   { name: 'Attendance Reports', href: '/admin/attendance/reports', icon: BarChart3 },
+  { name: 'Sermons', href: '/admin/sermons', icon: BookOpen },
+  { name: 'Prayer Requests', href: '/admin/prayer-requests', icon: HandHeart },
+  { name: 'Testimonies', href: '/admin/testimonies', icon: MessageSquare },
   { name: 'User Management', href: '/admin/users', icon: ShieldCheck, adminOnly: true },
-  { name: 'Sermons', href: '/admin/sermons', icon: BookOpen, placeholder: true },
-  { name: 'Prayer Requests', href: '/admin/prayer-requests', icon: HandHeart, placeholder: true },
-  { name: 'Testimonies', href: '/admin/testimonies', icon: MessageSquare, placeholder: true },
   { name: 'Settings', href: '/admin/settings', icon: Settings, placeholder: true },
 ]
 
@@ -58,11 +60,11 @@ export function AdminLayout() {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-64 bg-card border-r transform transition-transform duration-200 ease-in-out lg:translate-x-0',
+          'fixed inset-y-0 left-0 z-50 w-64 bg-card border-r transform transition-transform duration-200 ease-in-out lg:translate-x-0 flex flex-col',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
-        <div className="flex h-16 items-center justify-between px-4 border-b">
+        <div className="flex h-16 items-center justify-between px-4 border-b shrink-0">
           <Link to="/admin" className="text-xl font-bold text-primary">
             Church CMS
           </Link>
@@ -73,7 +75,7 @@ export function AdminLayout() {
             <X size={24} />
           </button>
         </div>
-        <nav className="p-4 space-y-1">
+        <nav className="p-4 space-y-1 flex-1">
           {navigation
             .filter((item) => !item.adminOnly || user?.role === 'admin')
             .map((item) => {
@@ -105,6 +107,19 @@ export function AdminLayout() {
               )
             })}
         </nav>
+        
+        {/* View Public Site Link */}
+        <div className="p-4 border-t">
+          <Link
+            to="/"
+            className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <Home size={20} />
+            View Public Site
+            <ExternalLink size={14} className="ml-auto" />
+          </Link>
+        </div>
       </aside>
 
       {/* Main content */}
@@ -119,6 +134,15 @@ export function AdminLayout() {
           </button>
 
           <div className="flex-1" />
+
+          {/* View Site Button */}
+          <Link
+            to="/"
+            className="hidden sm:flex items-center gap-2 px-3 py-1.5 mr-4 text-sm font-medium text-muted-foreground hover:text-foreground border rounded-md hover:bg-muted transition-colors"
+          >
+            <Home size={16} />
+            View Site
+          </Link>
 
           {/* User menu */}
           <div className="relative">

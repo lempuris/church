@@ -1,0 +1,177 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  claude-review:
+    name: AI Code Review
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get PR diff
+        id: diff
+        run: |
+          # Get the diff between base and head
+          git diff origin/${{ github.base_ref }}...HEAD > diff.txt
+          
+          # Truncate if too large (Claude has context limits)
+          if [ $(wc -c < diff.txt) -gt 100000 ]; then
+            head -c 100000 diff.txt > diff_truncated.txt
+            mv diff_truncated.txt diff.txt
+            echo "truncated=true" >> $GITHUB_OUTPUT
+          else
+            echo "truncated=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get changed files list
+        id: files
+        run: |
+          git diff --name-only origin/${{ github.base_ref }}...HEAD > changed_files.txt
+          echo "Changed files:"
+          cat changed_files.txt
+
+      - name: Claude Code Review
+        id: review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          # Read the diff
+          DIFF=$(cat diff.txt)
+          CHANGED_FILES=$(cat changed_files.txt)
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_BODY="${{ github.event.pull_request.body }}"
+          
+          # Create the prompt
+          cat << 'PROMPT_END' > prompt.txt
+          You are an expert code reviewer for a Church Management System built with:
+          - Backend: FastAPI, SQLAlchemy, PostgreSQL, Alembic
+          - Frontend: React, TypeScript, Vite, Tailwind CSS, shadcn/ui
+          
+          Review the following code changes and provide constructive feedback.
+          
+          ## Review Guidelines:
+          1. **Security**: Check for SQL injection, XSS, authentication/authorization issues
+          2. **Performance**: Identify N+1 queries, unnecessary re-renders, missing indexes
+          3. **Code Quality**: DRY violations, complex functions, missing error handling
+          4. **Best Practices**: FastAPI patterns, React hooks rules, TypeScript type safety
+          5. **Bugs**: Logic errors, edge cases, race conditions
+          
+          ## Response Format:
+          Provide your review in this format:
+          
+          ### 🎯 Summary
+          Brief overview of the changes (1-2 sentences)
+          
+          ### ✅ What Looks Good
+          - Bullet points of well-implemented aspects
+          
+          ### ⚠️ Suggestions for Improvement
+          - **[Priority: High/Medium/Low]** Description of issue
+            - File: `filename`
+            - Suggestion: How to fix
+          
+          ### 🔒 Security Considerations
+          - Any security-related observations
+          
+          ### 💡 Optional Enhancements
+          - Nice-to-have improvements (not blocking)
+          
+          If the code looks good overall, say so! Don't invent issues.
+          PROMPT_END
+          
+          # Append PR info and diff to prompt
+          echo "" >> prompt.txt
+          echo "## Pull Request" >> prompt.txt
+          echo "Title: $PR_TITLE" >> prompt.txt
+          echo "" >> prompt.txt
+          echo "## Changed Files" >> prompt.txt
+          echo "$CHANGED_FILES" >> prompt.txt
+          echo "" >> prompt.txt
+          echo "## Code Diff" >> prompt.txt
+          echo '```diff' >> prompt.txt
+          cat diff.txt >> prompt.txt
+          echo '```' >> prompt.txt
+          
+          # Call Claude API
+          RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -d "$(jq -n \
+              --arg prompt "$(cat prompt.txt)" \
+              '{
+                "model": "claude-sonnet-4-20250514",
+                "max_tokens": 4096,
+                "messages": [{"role": "user", "content": $prompt}]
+              }')")
+          
+          # Extract the review text
+          REVIEW=$(echo "$RESPONSE" | jq -r '.content[0].text // "Error: Could not generate review"')
+          
+          # Save review to file (handling multiline)
+          echo "$REVIEW" > review.txt
+          
+          # Check for API errors
+          if echo "$RESPONSE" | jq -e '.error' > /dev/null 2>&1; then
+            ERROR=$(echo "$RESPONSE" | jq -r '.error.message')
+            echo "API Error: $ERROR"
+            echo "⚠️ Claude API Error: $ERROR" > review.txt
+          fi
+
+      - name: Post Review Comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const review = fs.readFileSync('review.txt', 'utf8');
+            const truncated = '${{ steps.diff.outputs.truncated }}' === 'true';
+            
+            let body = '## 🤖 Claude Code Review\n\n';
+            
+            if (truncated) {
+              body += '> ⚠️ **Note**: The diff was truncated due to size limits. Some changes may not be reviewed.\n\n';
+            }
+            
+            body += review;
+            body += '\n\n---\n*Automated review by Claude AI. Please use your judgment for final decisions.*';
+            
+            // Find existing comment to update
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('🤖 Claude Code Review')
+            );
+            
+            if (botComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body
+              });
+            }

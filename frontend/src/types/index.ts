@@ -362,3 +362,353 @@ export interface CellAttendanceComparison {
   average_attendance: number
   member_count: number
 }
+
+// Sermon Types
+export type MediaType = 'audio' | 'video' | 'thumbnail' | 'notes'
+
+export interface SermonSpeaker {
+  id: string
+  first_name: string
+  last_name: string
+}
+
+export interface SermonSeries {
+  id: string
+  title: string
+  description: string | null
+  thumbnail_url: string | null
+  start_date: string | null
+  end_date: string | null
+  is_active: boolean
+  created_at: string
+  sermon_count: number
+}
+
+export interface SermonSeriesListResponse {
+  items: SermonSeries[]
+  total: number
+}
+
+export interface SermonSeriesCreate {
+  title: string
+  description?: string
+  start_date?: string
+  end_date?: string
+}
+
+export type SermonSeriesUpdate = Partial<SermonSeriesCreate> & {
+  is_active?: boolean
+}
+
+export interface Sermon {
+  id: string
+  title: string
+  description: string | null
+  speaker_id: string | null
+  speaker_name: string | null
+  series_id: string | null
+  sermon_date: string
+  scripture_reference: string | null
+  duration_seconds: number | null
+  audio_url: string | null
+  video_url: string | null
+  thumbnail_url: string | null
+  notes_url: string | null
+  view_count: number
+  is_published: boolean
+  published_at: string | null
+  scheduled_publish_at: string | null
+  created_at: string
+  updated_at: string
+  series_title: string | null
+  speaker: SermonSpeaker | null
+}
+
+export interface SermonDetail extends Sermon {
+  related_sermons: Sermon[]
+}
+
+export interface SermonListResponse {
+  items: Sermon[]
+  total: number
+  page: number
+  page_size: number
+  total_pages: number
+}
+
+export interface PublicSermon {
+  id: string
+  title: string
+  description: string | null
+  speaker_name: string | null
+  sermon_date: string
+  scripture_reference: string | null
+  duration_seconds: number | null
+  audio_url: string | null
+  video_url: string | null
+  thumbnail_url: string | null
+  view_count: number
+  series_id: string | null
+  series_title: string | null
+}
+
+export interface PublicSermonListResponse {
+  items: PublicSermon[]
+  total: number
+  page: number
+  page_size: number
+  total_pages: number
+}
+
+export interface SermonCreate {
+  title: string
+  description?: string
+  speaker_id?: string
+  speaker_name?: string
+  series_id?: string
+  sermon_date: string
+  scripture_reference?: string
+}
+
+export interface SermonUpdate {
+  title?: string
+  description?: string
+  speaker_id?: string
+  speaker_name?: string
+  series_id?: string
+  sermon_date?: string
+  scripture_reference?: string
+  duration_seconds?: number
+}
+
+export interface SermonPublishRequest {
+  scheduled_publish_at?: string
+}
+
+export interface MediaUploadRequest {
+  media_type: MediaType
+  file_name: string
+  content_type: string
+}
+
+export interface MediaUploadResponse {
+  upload_url: string
+  file_key: string
+  media_type: MediaType
+}
+
+export interface MediaUploadComplete {
+  media_type: MediaType
+  file_key: string
+  duration_seconds?: number
+}
+
+// Prayer Request Types
+export type PrayerStatus = 'pending' | 'approved' | 'rejected' | 'answered'
+
+export interface PrayerRequestAuthor {
+  id: string
+  first_name: string
+  last_name: string
+}
+
+export interface PrayerRequest {
+  id: string
+  member_id: string | null
+  author_name: string | null
+  author_email: string | null
+  title: string
+  description: string
+  is_anonymous: boolean
+  is_public: boolean
+  status: PrayerStatus
+  prayer_count: number
+  answered_at: string | null
+  answer_testimony: string | null
+  created_at: string
+  updated_at: string
+  author: PrayerRequestAuthor | null
+}
+
+export interface PrayerRequestListResponse {
+  items: PrayerRequest[]
+  total: number
+  page: number
+  page_size: number
+  total_pages: number
+}
+
+export interface PublicPrayerRequest {
+  id: string
+  title: string
+  description: string
+  author_name: string | null
+  is_anonymous: boolean
+  status: PrayerStatus
+  prayer_count: number
+  answered_at: string | null
+  answer_testimony: string | null
+  created_at: string
+  has_prayed: boolean
+}
+
+export interface PublicPrayerListResponse {
+  items: PublicPrayerRequest[]
+  total: number
+  page: number
+  page_size: number
+  total_pages: number
+}
+
+export interface PrayerRequestCreate {
+  title: string
+  description: string
+  author_name?: string
+  author_email?: string
+  is_anonymous?: boolean
+  is_public?: boolean
+}
+
+export interface PrayerRequestUpdate {
+  title?: string
+  description?: string
+  is_anonymous?: boolean
+  is_public?: boolean
+}
+
+export interface PrayResponse {
+  success: boolean
+  prayer_count: number
+  message: string
+}
+
+export interface MarkAnsweredRequest {
+  answer_testimony?: string
+}
+
+export interface MarkAnsweredResponse {
+  success: boolean
+  message: string
+}
+
+export interface PrayerModerationRequest {
+  action: 'approve' | 'reject'
+  rejection_reason?: string
+}
+
+export interface PrayerModerationResponse {
+  success: boolean
+  message: string
+  status: PrayerStatus
+}
+
+// Testimony Types
+export type TestimonyCategory =
+  | 'healing'
+  | 'provision'
+  | 'salvation'
+  | 'deliverance'
+  | 'family'
+  | 'career'
+  | 'other'
+
+export type TestimonyStatus = 'pending' | 'approved' | 'rejected'
+
+export interface TestimonyAuthor {
+  id: string
+  first_name: string
+  last_name: string
+}
+
+export interface Testimony {
+  id: string
+  member_id: string | null
+  author_name: string | null
+  title: string
+  content: string
+  category: TestimonyCategory | null
+  media_url: string | null
+  status: TestimonyStatus
+  is_featured: boolean
+  rejection_reason: string | null
+  approved_by: string | null
+  approved_at: string | null
+  created_at: string
+  updated_at: string
+  author: TestimonyAuthor | null
+}
+
+export interface TestimonyListResponse {
+  items: Testimony[]
+  total: number
+  page: number
+  page_size: number
+  total_pages: number
+}
+
+export interface PublicTestimony {
+  id: string
+  title: string
+  content: string
+  category: TestimonyCategory | null
+  author_name: string | null
+  media_url: string | null
+  is_featured: boolean
+  created_at: string
+}
+
+export interface PublicTestimonyListResponse {
+  items: PublicTestimony[]
+  total: number
+  page: number
+  page_size: number
+  total_pages: number
+}
+
+export interface TestimonyCreate {
+  title: string
+  content: string
+  author_name?: string
+  category?: TestimonyCategory
+}
+
+export interface TestimonyUpdate {
+  title?: string
+  content?: string
+  category?: TestimonyCategory
+}
+
+export interface TestimonyMediaUploadRequest {
+  file_name: string
+  content_type: string
+}
+
+export interface TestimonyMediaUploadResponse {
+  upload_url: string
+  file_key: string
+}
+
+export interface TestimonyMediaComplete {
+  file_key: string
+}
+
+export interface TestimonyModerationRequest {
+  action: 'approve' | 'reject'
+  rejection_reason?: string
+}
+
+export interface TestimonyModerationResponse {
+  success: boolean
+  message: string
+  status: TestimonyStatus
+}
+
+export interface TestimonyFeatureRequest {
+  is_featured: boolean
+}
+
+export interface TestimonyFeatureResponse {
+  success: boolean
+  message: string
+  is_featured: boolean
+}

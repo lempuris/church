@@ -50,7 +50,7 @@ def list_cells(
     )
 
 
-@router.post("", response_model=CellResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=CellDetailResponse, status_code=status.HTTP_201_CREATED)
 def create_cell(
     cell_data: CellCreate,
     db: Annotated[Session, Depends(get_db)],
@@ -81,7 +81,7 @@ def create_cell(
 
     cell = cell_service.create_cell(cell_data)
     cell_dict = cell_service.get_cell_detail(cell.id)
-    return CellResponse(**cell_dict)
+    return CellDetailResponse(**cell_dict)
 
 
 @router.get("/my-cell", response_model=CellDetailResponse | None)
@@ -119,7 +119,7 @@ def get_cell(
     return CellDetailResponse(**cell_dict)
 
 
-@router.put("/{cell_id}", response_model=CellResponse)
+@router.put("/{cell_id}", response_model=CellDetailResponse)
 def update_cell(
     cell_id: UUID,
     cell_data: CellUpdate,
@@ -157,7 +157,7 @@ def update_cell(
         )
 
     cell_dict = cell_service.get_cell_detail(cell.id)
-    return CellResponse(**cell_dict)
+    return CellDetailResponse(**cell_dict)
 
 
 @router.delete("/{cell_id}", status_code=status.HTTP_204_NO_CONTENT)

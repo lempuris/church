@@ -11,7 +11,7 @@ import { AdminLayout, PublicLayout } from '@/components/layouts'
 import { Login, Register, ForgotPassword, ResetPassword } from '@/pages/auth'
 
 // Public Pages
-import { Home, About, Contact, Events, Sermons, PrayerWall } from '@/pages/public'
+import { Home, About, Contact, Events, Sermons, PrayerWall, Testimonies } from '@/pages/public'
 
 // Admin Pages
 import {
@@ -28,6 +28,12 @@ import {
   EventAttendance,
   AttendanceReports,
   UserList,
+  SermonList,
+  SermonForm,
+  SermonDetail,
+  SermonSeriesList,
+  PrayerList,
+  TestimonyList,
 } from '@/pages/admin'
 
 const queryClient = new QueryClient({
@@ -92,6 +98,7 @@ function AppRoutes() {
         <Route path="/events" element={<Events />} />
         <Route path="/sermons" element={<Sermons />} />
         <Route path="/prayer-wall" element={<PrayerWall />} />
+        <Route path="/testimonies" element={<Testimonies />} />
       </Route>
 
       {/* Auth Routes */}
@@ -142,6 +149,16 @@ function AppRoutes() {
         <Route path="events/:id/attendance" element={<EventAttendance />} />
         {/* Attendance Reports */}
         <Route path="attendance/reports" element={<AttendanceReports />} />
+        {/* Sermons */}
+        <Route path="sermons" element={<SermonList />} />
+        <Route path="sermons/new" element={<SermonForm />} />
+        <Route path="sermons/series" element={<SermonSeriesList />} />
+        <Route path="sermons/:id" element={<SermonDetail />} />
+        <Route path="sermons/:id/edit" element={<SermonForm />} />
+        {/* Prayer Requests */}
+        <Route path="prayer-requests" element={<PrayerList />} />
+        {/* Testimonies */}
+        <Route path="testimonies" element={<TestimonyList />} />
         {/* User Management (Admin Only) */}
         <Route path="users" element={<UserList />} />
       </Route>
