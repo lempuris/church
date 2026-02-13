@@ -5,7 +5,6 @@ import boto3
 from botocore.config import Config
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.elements import UnaryExpression
 
 from app.core.config import settings
 from app.models import FamilyRelationship, Member, User
