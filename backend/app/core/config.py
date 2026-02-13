@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     # App
-    APP_NAME: str = "Church Management System"
+    APP_NAME: str = "Glory House Management System"
     DEBUG: bool = True
     API_V1_STR: str = "/api/v1"
 

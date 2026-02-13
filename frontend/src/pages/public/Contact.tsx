@@ -12,7 +12,7 @@ const contactInfo = [
   {
     icon: MapPin,
     title: 'Visit Us',
-    details: ['123 Grace Street', 'Sandton, Johannesburg', 'Gauteng, 2196'],
+    details: ['56 President Park Ext 10', '1 Swart Drive, Corner Dale Road', 'Midrand, Gauteng'],
   },
   {
     icon: Phone,
@@ -22,12 +22,12 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email Us',
-    details: ['info@thembani.church', 'pastor@thembani.church'],
+    details: ['info@gloryhouse.church', 'pastor@gloryhouse.church'],
   },
   {
     icon: Clock,
-    title: 'Office Hours',
-    details: ['Mon - Fri: 8:00 AM - 5:00 PM', 'Sat: 9:00 AM - 1:00 PM', 'Sun: Services Only'],
+    title: 'Service Times',
+    details: ['Sunday: 9:00 AM & 10:00 AM', 'Prayer: 8:45 AM', 'Thursday Rehearsal: 7:00 PM'],
   },
 ]
 
@@ -246,7 +246,7 @@ export function Contact() {
             <div>
               <h2 className="text-3xl font-bold text-foreground mb-2">Find Us</h2>
               <p className="text-muted-foreground mb-8">
-                Our main campus is located in Sandton, Johannesburg. Parking available.
+                Our main campus is located in Midrand, Gauteng. Parking available.
               </p>
               
               {/* Map Placeholder */}
@@ -261,8 +261,8 @@ export function Contact() {
                 </div>
                 <div className="text-center z-10">
                   <MapPin className="h-16 w-16 text-primary mx-auto mb-3" />
-                  <p className="text-foreground font-medium">123 Grace Street, Sandton</p>
-                  <p className="text-muted-foreground text-sm">Johannesburg, Gauteng</p>
+                  <p className="text-foreground font-medium">56 President Park Ext 10</p>
+                  <p className="text-muted-foreground text-sm">1 Swart Drive, Corner Dale Road, Midrand</p>
                   <Button variant="link" className="mt-2">
                     Open in Google Maps →
                   </Button>
@@ -346,7 +346,7 @@ export function Contact() {
                 },
                 {
                   q: 'Is there parking available?',
-                  a: 'Yes, we have ample parking at our Sandton campus. Parking marshals are available to assist you.',
+                  a: 'Yes, we have ample parking at our Midrand campus. Parking marshals are available to assist you.',
                 },
               ].map((faq, index) => (
                 <Card key={index} className="hover:shadow-md transition-shadow">

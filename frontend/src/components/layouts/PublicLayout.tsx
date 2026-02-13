@@ -42,17 +42,16 @@ export function PublicLayout() {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 group">
-              <div 
-                className="h-9 w-9 rounded-lg flex items-center justify-center text-white font-black text-lg shadow-md group-hover:shadow-lg transition-shadow"
-                style={{ background: `linear-gradient(135deg, ${theme.colors.gradientFrom}, ${theme.colors.gradientTo})` }}
-              >
-                T
-              </div>
-              <span 
+              <img
+                src="/logo.png"
+                alt="Glory House"
+                className="h-9 w-auto group-hover:opacity-90 transition-opacity"
+              />
+              <span
                 className="text-xl font-bold bg-clip-text text-transparent"
                 style={{ backgroundImage: `linear-gradient(to right, ${theme.colors.gradientFrom}, ${theme.colors.gradientVia})` }}
               >
-                Thembani Church
+                Glory House
               </span>
             </Link>
 
@@ -224,30 +223,29 @@ export function PublicLayout() {
             {/* Brand */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div 
-                  className="h-10 w-10 rounded-lg flex items-center justify-center text-white font-black text-xl"
-                  style={{ background: `linear-gradient(135deg, ${theme.colors.gradientFrom}, ${theme.colors.gradientTo})` }}
-                >
-                  T
-                </div>
-                <span className="text-xl font-bold">Thembani Church</span>
+                <img
+                  src="/logo.png"
+                  alt="Glory House"
+                  className="h-10 w-auto brightness-0 invert"
+                />
+                <span className="text-xl font-bold">Glory House</span>
               </div>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                "Thembani" means "have faith" in isiZulu. We are a community united by faith, 
-                committed to Ubuntu, and passionate about serving South Africa.
+                A community united by faith, passionate about worship,
+                and committed to serving our community with love.
               </p>
-              <div 
+              <div
                 className="flex items-center gap-1 text-sm"
                 style={{ color: theme.colors.gradientFrom }}
               >
                 <Heart className="h-4 w-4" />
-                <span>I am because we are</span>
+                <span>Where faith comes alive</span>
               </div>
             </div>
 
             {/* Service Times */}
             <div>
-              <h4 
+              <h4
                 className="font-bold text-lg mb-4"
                 style={{ color: theme.colors.gradientFrom }}
               >
@@ -256,40 +254,40 @@ export function PublicLayout() {
               <ul className="text-sm text-gray-400 space-y-3">
                 <li className="flex justify-between">
                   <span>Sunday Service</span>
-                  <span className="text-white">9:00 & 11:00 AM</span>
+                  <span className="text-white">9:00 & 10:00 AM</span>
                 </li>
                 <li className="flex justify-between">
-                  <span>Wednesday Bible Study</span>
-                  <span className="text-white">7:00 PM</span>
+                  <span>Pre-Service Prayer</span>
+                  <span className="text-white">8:45 AM</span>
                 </li>
                 <li className="flex justify-between">
-                  <span>Friday Youth Night</span>
-                  <span className="text-white">6:00 PM</span>
+                  <span>Thursday Rehearsal</span>
+                  <span className="text-white">7:00 - 9:00 PM</span>
                 </li>
               </ul>
             </div>
 
             {/* Contact */}
             <div>
-              <h4 
+              <h4
                 className="font-bold text-lg mb-4"
                 style={{ color: theme.colors.gradientFrom }}
               >
                 Contact Us
               </h4>
               <ul className="text-sm text-gray-400 space-y-3">
-                <li>123 Grace Street</li>
-                <li>Sandton, Johannesburg</li>
-                <li>Gauteng, South Africa</li>
+                <li>56 President Park Ext 10</li>
+                <li>1 Swart Drive, Corner Dale Road</li>
+                <li>Midrand, Gauteng</li>
                 <li className="pt-2">
-                  <a 
-                    href="mailto:info@thembani.church" 
+                  <a
+                    href="mailto:info@gloryhouse.church"
                     className="text-white transition-colors"
                     style={{ }}
                     onMouseEnter={(e) => e.currentTarget.style.color = theme.colors.gradientFrom}
                     onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
                   >
-                    info@thembani.church
+                    info@gloryhouse.church
                   </a>
                 </li>
                 <li>
@@ -334,7 +332,7 @@ export function PublicLayout() {
           <div className="mt-12 pt-8 border-t border-gray-700">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-sm text-gray-500">
-                &copy; {new Date().getFullYear()} Thembani Church. All rights reserved.
+                &copy; {new Date().getFullYear()} Glory House. All rights reserved.
               </p>
               <div className="flex items-center gap-6 text-sm text-gray-500">
                 <a 

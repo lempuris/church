@@ -167,15 +167,15 @@ export function Home() {
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
               <Sparkles className="h-4 w-4 text-white/80" />
-              <span className="text-white/90 text-sm font-medium">Ubuntu - "I am because we are"</span>
+              <span className="text-white/90 text-sm font-medium">Colossians 1:27 - "Christ in you, the hope of glory"</span>
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-white drop-shadow-lg">
               Welcome to<br />
-              <span className="text-white/80">Thembani Church</span>
+              <span className="text-white/80">Glory House</span>
             </h1>
             <p className="text-xl md:text-2xl mb-10 text-white/90 max-w-2xl leading-relaxed">
-              Where faith meets community in the heart of South Africa. 
-              Join us as we grow together, serve together, and worship together.
+              Where faith meets community in the heart of Midrand.
+              Christ in you, bringing with Him the hope of all glorious things to come.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/register">
@@ -215,10 +215,14 @@ export function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
               Sawubona! <span className="text-primary">We See You.</span>
             </h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              At Thembani Church, we believe in the African philosophy of Ubuntu - that we are all connected. 
-              Whether you're from Johannesburg, Pretoria, Cape Town, or anywhere in Mzansi, 
-              you have a home here. Come as you are, leave transformed.
+            <p className="text-xl text-muted-foreground leading-relaxed mb-6">
+              Glory House Ministry is driven by a clear Vision and Mission rooted in Purpose,
+              underpinned by the Foundations of the Gospel of Faith.
+            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed italic">
+              "God has a purpose and plan to reveal a truth to all people -
+              the mystery of Christ in you, bringing the hope of glory and the fulfillment
+              of God's promise to restore us and all creation."
             </p>
           </div>
         </div>
@@ -235,30 +239,30 @@ export function Home() {
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
-            <ServiceCard 
-              title="Sonto Service" 
+            <ServiceCard
+              title="Sonto Service"
               subtitle="Sunday Main Worship"
               time="9:00 AM"
-              subtime="& 11:00 AM"
-              location="Main Sanctuary - Sandton"
+              subtime="& 10:00 AM"
+              location="56 President Park Ext 10, Midrand"
               theme={theme}
               index={0}
             />
-            <ServiceCard 
-              title="Midweek Revival" 
-              subtitle="Wednesday Bible Study"
-              time="7:00 PM"
-              subtime="Deep Word Study"
-              location="Fellowship Hall"
+            <ServiceCard
+              title="Pre-Service Prayer"
+              subtitle="Sunday Preparation"
+              time="8:45 AM"
+              subtime="Come Ready to Worship"
+              location="56 President Park Ext 10, Midrand"
               theme={theme}
               index={1}
             />
-            <ServiceCard 
-              title="Intsha Night" 
-              subtitle="Friday Youth Service"
-              time="6:00 PM"
-              subtime="Youth & Young Adults"
-              location="Youth Center - Midrand"
+            <ServiceCard
+              title="Worship Rehearsal"
+              subtitle="Thursday Night"
+              time="7:00 PM"
+              subtime="to 9:00 PM"
+              location="56 President Park Ext 10, Midrand"
               theme={theme}
               index={2}
             />
@@ -379,7 +383,7 @@ export function Home() {
             Ready to Find Your Family?
           </h2>
           <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-            We'd love to welcome you to Thembani Church. Create an account to stay connected and be part of our community.
+            We'd love to welcome you to Glory House. Create an account to stay connected and be part of our community.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/register">
