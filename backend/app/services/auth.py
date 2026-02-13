@@ -217,7 +217,7 @@ class AuthService:
         """Get count of users by role for dashboard stats."""
         stmt = select(User.role, func.count(User.id)).group_by(User.role)
         results = self.db.execute(stmt).all()
-        return dict(results)
+        return {row[0]: row[1] for row in results}
 
 
 def get_auth_service(db: Session) -> AuthService:

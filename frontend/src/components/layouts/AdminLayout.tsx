@@ -71,8 +71,9 @@ export function AdminLayout() {
         )}
       >
         <div className="flex h-16 items-center justify-between px-4 border-b shrink-0">
-          <Link to="/admin" className="text-xl font-bold text-primary">
-            Church CMS
+          <Link to="/admin" className="flex items-center gap-2 text-xl font-bold text-primary">
+            <img src="/logo.png" alt="Glory House" className="h-8 w-auto" />
+            Glory House
           </Link>
           <button
             className="lg:hidden text-muted-foreground hover:text-foreground"

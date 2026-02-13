@@ -30,20 +30,39 @@ const values = [
 
 const leaders = [
   {
-    name: 'Pastor Thabo Mokoena',
-    role: 'Senior Pastor',
-    bio: 'Pastor Thabo has led Thembani Church for over 15 years. His passion for community transformation and biblical teaching has shaped our church family.',
+    name: 'Bishop TK',
+    role: 'Commissioned By',
+    bio: 'Bishop TK commissioned Glory House Ministry, establishing our foundation in faith and purpose.',
   },
   {
-    name: 'Pastor Nomvula Dlamini',
-    role: 'Associate Pastor',
-    bio: 'Pastor Nomvula oversees our women\'s ministry and counseling services. Her heart for discipleship has helped many grow in their faith.',
+    name: 'Apostle LadyD',
+    role: 'Apostle',
+    bio: 'Apostle LadyD brings apostolic leadership and vision to Glory House, guiding our spiritual direction.',
   },
   {
-    name: 'Elder Sipho Nkosi',
-    role: 'Elder & Worship Director',
-    bio: 'Elder Sipho leads our multilingual worship team, bringing together diverse voices in praise and celebration.',
+    name: 'Apostle Theletsane',
+    role: 'Apostle',
+    bio: 'Apostle Theletsane partners in apostolic ministry, helping to shape our community of believers.',
   },
+  {
+    name: 'Pastor Benie',
+    role: 'Blessed By',
+    bio: 'Pastor Benie provides spiritual blessing and oversight to the ministry of Glory House.',
+  },
+]
+
+const ministryTeams = [
+  { name: 'Media', description: 'Capturing and sharing our services through technology' },
+  { name: 'Ushering', description: 'Welcoming and guiding our congregation' },
+  { name: 'VIP Protocol', description: 'Honoring guests and special visitors' },
+  { name: 'Security Protocol', description: 'Ensuring safety for all who attend' },
+  { name: 'Events Management', description: 'Coordinating church events and celebrations' },
+  { name: 'Transport Management', description: 'Helping members get to and from services' },
+]
+
+const wellnessDimensions = [
+  'Physical', 'Emotional', 'Spiritual', 'Intellectual',
+  'Social', 'Environmental', 'Occupational', 'Financial'
 ]
 
 function ValueCard({ value, theme, index }: { 
@@ -96,37 +115,45 @@ export function About() {
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-5xl md:text-6xl font-black text-white mb-6">
-            About <span className="text-white/80">Thembani Church</span>
+            About <span className="text-white/80">Glory House</span>
           </h1>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto">
-            Rooted in faith, growing in community, serving South Africa and beyond.
+          <p className="text-xl text-white/90 max-w-3xl mx-auto mb-4">
+            "Christ in you, the hope of glory" — Colossians 1:27
+          </p>
+          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+            56 President Park Ext 10, 1 Swart Drive, Corner Dale Road, Midrand
           </p>
         </div>
       </section>
 
-      {/* Our Story */}
+      {/* Foundation Scripture */}
       <section className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <Sparkles className="h-10 w-10 text-primary mx-auto mb-4" />
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Story</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Foundation</h2>
+              <p className="text-lg text-primary font-semibold">Colossians 1:27</p>
             </div>
             <div className="prose prose-lg max-w-none text-muted-foreground">
-              <p className="text-lg leading-relaxed mb-6">
-                Thembani Church was founded in 2005 in Soweto, born from a vision to create a church that truly reflects 
-                the rainbow nation of South Africa. Our name, "Thembani," means "have faith" in isiZulu - a reminder 
-                that through all circumstances, our trust is in God.
-              </p>
-              <p className="text-lg leading-relaxed mb-6">
-                What started as a small gathering of 20 people in a community hall has grown into a vibrant family 
-                of believers across Gauteng. Today, we have our main campus in Sandton and cell groups stretching 
-                from Pretoria to Soweto, from Midrand to Centurion.
-              </p>
-              <p className="text-lg leading-relaxed">
-                We're proud to be a multilingual church where you'll hear prayers in isiZulu, worship in Afrikaans, 
-                and teaching in English. We believe this diversity is our strength - because in Christ, we are one.
-              </p>
+              <blockquote className="text-xl leading-relaxed mb-8 text-center italic border-l-4 border-primary pl-6">
+                "To them God has chosen to make known among the Gentiles the glorious riches of this mystery,
+                which is Christ in you, the hope of glory."
+              </blockquote>
+              <div className="grid gap-6 md:grid-cols-3 text-center">
+                <div className="p-4 rounded-lg bg-background">
+                  <p className="font-semibold text-foreground mb-2">God's Purpose</p>
+                  <p className="text-sm">God has a purpose and plan to reveal a truth to all people</p>
+                </div>
+                <div className="p-4 rounded-lg bg-background">
+                  <p className="font-semibold text-foreground mb-2">The Mystery</p>
+                  <p className="text-sm">Christ in you, bringing with Him the hope of all glorious things to come</p>
+                </div>
+                <div className="p-4 rounded-lg bg-background">
+                  <p className="font-semibold text-foreground mb-2">Hope of Glory</p>
+                  <p className="text-sm">The fulfillment of God's promise to restore us and all creation</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -151,18 +178,18 @@ export function About() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-center text-lg leading-relaxed">
-                  To be a transformative community of faith that reflects God's love, brings healing to our nation, 
-                  and raises leaders who will impact South Africa and the world for Christ.
+                  Glory House Ministry is driven by a clear Vision rooted in Purpose -
+                  to reveal Christ in every believer, bringing the hope of glory to our community and beyond.
                 </p>
               </CardContent>
             </Card>
 
-            <Card 
+            <Card
               className="shadow-lg border-t-4"
               style={{ borderTopColor: theme.colors.gradientVia }}
             >
               <CardHeader className="text-center pb-2">
-                <div 
+                <div
                   className="h-16 w-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
                   style={{ backgroundColor: `${theme.colors.gradientVia}20`, color: theme.colors.gradientVia }}
                 >
@@ -172,8 +199,8 @@ export function About() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-center text-lg leading-relaxed">
-                  To make disciples of Jesus Christ through authentic worship, biblical teaching, meaningful 
-                  fellowship, and compassionate service to our communities across Mzansi.
+                  To create a worship culture where every person encounters the Holy Spirit and the presence of God,
+                  underpinned by the Foundations of the Gospel of Faith.
                 </p>
               </CardContent>
             </Card>
@@ -210,18 +237,18 @@ export function About() {
               Meet the team called to shepherd our church family.
             </p>
           </div>
-          <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
             {leaders.map((leader) => (
               <Card key={leader.name} className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div 
-                    className="h-24 w-24 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold"
+                  <div
+                    className="h-24 w-24 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold"
                     style={{ background: `linear-gradient(135deg, ${theme.colors.gradientFrom}, ${theme.colors.gradientTo})` }}
                   >
-                    {leader.name.split(' ').slice(1).map(n => n[0]).join('')}
+                    {leader.name.split(' ').slice(-1)[0].substring(0, 2).toUpperCase()}
                   </div>
                   <CardTitle className="text-xl">{leader.name}</CardTitle>
-                  <CardDescription 
+                  <CardDescription
                     className="font-medium"
                     style={{ color: theme.colors.primary }}
                   >
@@ -237,42 +264,153 @@ export function About() {
         </div>
       </section>
 
-      {/* Cell Groups */}
-      <section 
+      {/* Ministry Teams */}
+      <section
+        className="py-20"
+        style={{ background: `linear-gradient(135deg, ${theme.colors.muted}, ${theme.colors.secondary}50)` }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Ministry Teams</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+              Glory House operates through dedicated ministry teams serving our congregation.
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+            {ministryTeams.map((ministry, index) => {
+              const colors = [
+                theme.colors.gradientFrom,
+                theme.colors.gradientVia,
+                theme.colors.gradientTo,
+                theme.colors.primary,
+              ]
+              const color = colors[index % colors.length]
+              return (
+                <Card
+                  key={ministry.name}
+                  className="hover:shadow-lg transition-shadow border-l-4"
+                  style={{ borderLeftColor: color }}
+                >
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg">{ministry.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground text-sm">{ministry.description}</p>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 8 Dimensions of Wellness */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">8 Dimensions of Wellness</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+              An interconnected framework for holistic spiritual growth and wellness focus.
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              {wellnessDimensions.map((dimension, index) => {
+                const colors = [
+                  theme.colors.gradientFrom,
+                  theme.colors.gradientVia,
+                  theme.colors.gradientTo,
+                  theme.colors.primary,
+                ]
+                const color = colors[index % colors.length]
+                return (
+                  <div
+                    key={dimension}
+                    className="text-center p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                    style={{ backgroundColor: `${color}10`, borderColor: color, borderWidth: 1 }}
+                  >
+                    <p className="font-semibold" style={{ color }}>{dimension}</p>
+                  </div>
+                )
+              })}
+            </div>
+            <p className="text-center text-muted-foreground">
+              The 8 dimensions provide a solid framework for us to understand wellness and make meaningful changes
+              to improve our health, happiness, and quality of life. Without focus, we can end up investing time
+              in wellness activities that don't impact the areas we are trying to improve.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Praise & Worship Team */}
+      <section
         className="py-20 text-white"
         style={{ background: `linear-gradient(135deg, ${theme.colors.gradientFrom}, ${theme.colors.gradientTo})` }}
       >
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <Users className="h-12 w-12 mx-auto mb-6 text-white/70" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Join a Cell Group</h2>
-            <p className="text-xl text-white/90 mb-8 leading-relaxed">
-              Our cell groups meet weekly across Gauteng. Whether you're in Soweto, Sandton, Pretoria, or 
-              anywhere in between, there's a group for you. Experience authentic community, Bible study, 
-              and friendship in a smaller setting.
-            </p>
-            <div className="grid gap-4 md:grid-cols-3 mb-10">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <p className="font-bold text-2xl text-white/90">7</p>
-                <p className="text-white/70">Active Cell Groups</p>
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <Users className="h-12 w-12 mx-auto mb-6 text-white/70" />
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Praise & Worship Team</h2>
+              <p className="text-xl text-white/90 leading-relaxed">
+                A group of musicians and vocalists, led by a worship leader, who lead our congregation
+                in singing and expressing praise and worship to God during religious services.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 mb-10">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <h3 className="text-xl font-bold mb-4">Our Commitment</h3>
+                <p className="text-white/90 text-sm leading-relaxed">
+                  To create a worship culture where every person encounters the Holy Spirit
+                  and the presence of God. We value leading people into the presence of God
+                  as our primary focus.
+                </p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <p className="font-bold text-2xl text-white/90">50+</p>
-                <p className="text-white/70">Cell Members</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <p className="font-bold text-2xl text-white/90">5</p>
-                <p className="text-white/70">Locations Across Gauteng</p>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                <h3 className="text-xl font-bold mb-4">Schedule</h3>
+                <ul className="text-white/90 text-sm space-y-2">
+                  <li>• Thursday Rehearsals: 7:00 - 9:00 PM (mandatory)</li>
+                  <li>• Sunday Sound Check: 7:30 AM</li>
+                  <li>• Sunday Prayer: 8:45 AM</li>
+                  <li>• Services: 9:00 AM & 10:00 AM</li>
+                </ul>
               </div>
             </div>
-            <Link to="/contact">
-              <button 
-                className="font-bold px-8 py-3 rounded-lg shadow-lg transition-all hover:scale-105"
-                style={{ backgroundColor: 'white', color: theme.colors.primary }}
-              >
-                Find a Cell Group Near You
-              </button>
-            </Link>
+
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-8">
+              <h3 className="text-xl font-bold mb-4 text-center">How to Join the Team</h3>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 text-sm">
+                <div className="text-center">
+                  <div className="bg-white/20 rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-2 font-bold">1</div>
+                  <p className="text-white/90">Attend church for at least 6 months</p>
+                </div>
+                <div className="text-center">
+                  <div className="bg-white/20 rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-2 font-bold">2</div>
+                  <p className="text-white/90">Fill out application form from church website</p>
+                </div>
+                <div className="text-center">
+                  <div className="bg-white/20 rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-2 font-bold">3</div>
+                  <p className="text-white/90">Go through church screening process</p>
+                </div>
+                <div className="text-center">
+                  <div className="bg-white/20 rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-2 font-bold">4</div>
+                  <p className="text-white/90">Connect with Worship Pastor for placement</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <Link to="/contact">
+                <button
+                  className="font-bold px-8 py-3 rounded-lg shadow-lg transition-all hover:scale-105"
+                  style={{ backgroundColor: 'white', color: theme.colors.primary }}
+                >
+                  Contact Us to Get Involved
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -284,8 +422,8 @@ export function About() {
             We'd Love to Meet You
           </h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Whether you're new to faith or have walked with Christ for years, 
-            there's a place for you at Thembani Church.
+            Whether you're new to faith or have walked with Christ for years,
+            there's a place for you at Glory House.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/events">

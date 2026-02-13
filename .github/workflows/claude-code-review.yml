@@ -46,70 +46,68 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          # Read the diff
-          DIFF=$(cat diff.txt)
-          CHANGED_FILES=$(cat changed_files.txt)
+          # Store PR info safely
           PR_TITLE="${{ github.event.pull_request.title }}"
-          PR_BODY="${{ github.event.pull_request.body }}"
-          
-          # Create the prompt
+
+          # Create the prompt file
           cat << 'PROMPT_END' > prompt.txt
           You are an expert code reviewer for a Church Management System built with:
           - Backend: FastAPI, SQLAlchemy, PostgreSQL, Alembic
           - Frontend: React, TypeScript, Vite, Tailwind CSS, shadcn/ui
-          
+
           Review the following code changes and provide constructive feedback.
-          
+
           ## Review Guidelines:
           1. **Security**: Check for SQL injection, XSS, authentication/authorization issues
           2. **Performance**: Identify N+1 queries, unnecessary re-renders, missing indexes
           3. **Code Quality**: DRY violations, complex functions, missing error handling
           4. **Best Practices**: FastAPI patterns, React hooks rules, TypeScript type safety
           5. **Bugs**: Logic errors, edge cases, race conditions
-          
+
           ## Response Format:
           Provide your review in this format:
-          
+
           ### 🎯 Summary
           Brief overview of the changes (1-2 sentences)
-          
+
           ### ✅ What Looks Good
           - Bullet points of well-implemented aspects
-          
+
           ### ⚠️ Suggestions for Improvement
           - **[Priority: High/Medium/Low]** Description of issue
             - File: `filename`
             - Suggestion: How to fix
-          
+
           ### 🔒 Security Considerations
           - Any security-related observations
-          
+
           ### 💡 Optional Enhancements
           - Nice-to-have improvements (not blocking)
-          
+
           If the code looks good overall, say so! Don't invent issues.
           PROMPT_END
-          
-          # Append PR info and diff to prompt
-          echo "" >> prompt.txt
-          echo "## Pull Request" >> prompt.txt
-          echo "Title: $PR_TITLE" >> prompt.txt
-          echo "" >> prompt.txt
-          echo "## Changed Files" >> prompt.txt
-          echo "$CHANGED_FILES" >> prompt.txt
-          echo "" >> prompt.txt
-          echo "## Code Diff" >> prompt.txt
-          echo '```diff' >> prompt.txt
-          cat diff.txt >> prompt.txt
-          echo '```' >> prompt.txt
-          
-          # Call Claude API
+
+          # Append PR info and diff to prompt (using cat to avoid variable expansion issues)
+          {
+            echo ""
+            echo "## Pull Request"
+            echo "Title: $PR_TITLE"
+            echo ""
+            echo "## Changed Files"
+            cat changed_files.txt
+            echo ""
+            echo "## Code Diff"
+            echo '```diff'
+            cat diff.txt
+            echo '```'
+          } >> prompt.txt
+
+          # Call Claude API using jq to safely handle the prompt content
           RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
             -H "Content-Type: application/json" \
             -H "x-api-key: $ANTHROPIC_API_KEY" \
             -H "anthropic-version: 2023-06-01" \
-            -d "$(jq -n \
-              --arg prompt "$(cat prompt.txt)" \
+            -d "$(jq -n --rawfile prompt prompt.txt \
               '{
                 "model": "claude-sonnet-4-20250514",
                 "max_tokens": 4096,

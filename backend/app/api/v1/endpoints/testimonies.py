@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, cast
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -23,6 +23,7 @@ from app.schemas.testimony import (
     TestimonyModerationRequest,
     TestimonyModerationResponse,
     TestimonyResponse,
+    TestimonyStatus,
     TestimonyUpdate,
 )
 from app.services import get_testimony_service
@@ -154,7 +155,7 @@ def moderate_testimony(
     return TestimonyModerationResponse(
         success=success,
         message=message,
-        status=new_status,
+        status=cast(TestimonyStatus, new_status),
     )
 
 

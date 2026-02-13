@@ -48,7 +48,10 @@ def list_categories(
     """List all donation categories."""
     service = get_donation_service(db)
     categories = service.get_categories(active_only=active_only)
-    return DonationCategoryListResponse(items=categories, total=len(categories))
+    return DonationCategoryListResponse(
+        items=[DonationCategoryResponse(**cat) for cat in categories],
+        total=len(categories),
+    )
 
 
 @router.post(
@@ -144,7 +147,7 @@ def list_donations(
     )
     total_pages = (total + page_size - 1) // page_size if total > 0 else 1
     return DonationListResponse(
-        items=donations,
+        items=[DonationResponse(**d) for d in donations],
         total=total,
         page=page,
         page_size=page_size,

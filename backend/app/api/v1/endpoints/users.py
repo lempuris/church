@@ -81,7 +81,7 @@ def get_user(
     Admin only.
     """
     auth_service = get_auth_service(db)
-    user = auth_service.get_user_by_id(str(user_id))
+    user = auth_service.get_user_by_id(user_id)
 
     if not user:
         raise HTTPException(

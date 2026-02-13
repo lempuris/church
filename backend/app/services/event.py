@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from uuid import UUID
 
-from dateutil.relativedelta import relativedelta
+from dateutil.relativedelta import relativedelta  # type: ignore[import-untyped]
 from sqlalchemy import and_, func, or_, select
 from sqlalchemy.orm import Session
 

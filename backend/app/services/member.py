@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Any, Literal
 from uuid import UUID
 
 import boto3
@@ -59,15 +59,17 @@ class MemberService:
         total = self.db.execute(count_stmt).scalar() or 0
 
         # Sorting
+        order_expression: Any
         if sort_by == "join_date":
-            order_col = Member.join_date
+            order_expression = (
+                Member.join_date.desc() if sort_order == "desc" else Member.join_date
+            )
         else:
-            order_col = Member.last_name
+            order_expression = (
+                Member.last_name.desc() if sort_order == "desc" else Member.last_name
+            )
 
-        if sort_order == "desc":
-            order_col = order_col.desc()
-
-        stmt = stmt.order_by(order_col, Member.first_name)
+        stmt = stmt.order_by(order_expression, Member.first_name)
 
         # Pagination
         offset = (page - 1) * page_size

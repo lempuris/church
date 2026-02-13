@@ -81,7 +81,7 @@ def create_cell(
 
     cell = cell_service.create_cell(cell_data)
     cell_dict = cell_service.get_cell_detail(cell.id)
-    return CellDetailResponse(**cell_dict)
+    return CellDetailResponse(**(cell_dict or {}))
 
 
 @router.get("/my-cell", response_model=CellDetailResponse | None)
@@ -97,7 +97,7 @@ def get_my_cell(
         return None
 
     cell_dict = cell_service.get_cell_detail(cell.id)
-    return CellDetailResponse(**cell_dict)
+    return CellDetailResponse(**(cell_dict or {}))
 
 
 @router.get("/{cell_id}", response_model=CellDetailResponse)
@@ -157,7 +157,7 @@ def update_cell(
         )
 
     cell_dict = cell_service.get_cell_detail(cell.id)
-    return CellDetailResponse(**cell_dict)
+    return CellDetailResponse(**(cell_dict or {}))
 
 
 @router.delete("/{cell_id}", status_code=status.HTTP_204_NO_CONTENT)

@@ -15,7 +15,7 @@ const impactStats = [
 
 const bankDetails = {
   bankName: 'First National Bank (FNB)',
-  accountName: 'Thembani Church',
+  accountName: 'Glory House',
   accountNumber: '62845678901',
   branchCode: '250655',
   swiftCode: 'FIABORNJXXX',
@@ -505,10 +505,10 @@ export function Giving() {
                   </div>
                 </div>
                 <p style={{ color: theme.colors.foreground }}>
-                  SnapCode: <span className="font-mono font-bold">ThembaniChurch</span>
+                  SnapCode: <span className="font-mono font-bold">GloryHouse</span>
                 </p>
                 <p className="mt-2 text-sm" style={{ color: theme.colors.mutedForeground }}>
-                  Open SnapScan app, scan our QR code at the church, or search for "Thembani Church"
+                  Open SnapScan app, scan our QR code at the church, or search for "Glory House"
                 </p>
               </div>
 
@@ -547,13 +547,13 @@ export function Giving() {
             >
               Your Gift Makes a Difference
             </h2>
-            <p 
+            <p
               className="text-lg leading-relaxed mb-8"
               style={{ color: theme.colors.mutedForeground }}
             >
-              Every donation to Thembani Church goes directly into ministry work — 
-              from supporting families in need, to funding youth programs, 
-              to sending missionaries across Africa. We are committed to 
+              Every donation to Glory House goes directly into ministry work —
+              from supporting families in need, to funding youth programs,
+              to sending missionaries across Africa. We are committed to
               transparency and stewardship of your generous gifts.
             </p>
             <div 

@@ -111,7 +111,7 @@ export function Events() {
             Upcoming <span className="text-amber-200">Events</span>
           </h1>
           <p className="text-xl text-white/90 max-w-3xl mx-auto">
-            From Sunday services to community outreaches, there's always something happening at Thembani Church.
+            From Sunday services to community outreaches, there's always something happening at Glory House.
             Come be part of the family!
           </p>
         </div>
