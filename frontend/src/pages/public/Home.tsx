@@ -338,10 +338,10 @@ export function Home() {
               theme={theme}
               index={0}
             />
-            <FeatureCard 
+            <FeatureCard
               icon={Users}
               title="Cell Groups"
-              description="Join a small group in your area - from Soweto to Sandton, we've got you covered."
+              description="Join a small group in your area - connect with our community in Midrand and beyond."
               href="/about"
               theme={theme}
               index={1}

@@ -293,7 +293,7 @@ class DonationService:
     ) -> dict:
         # Get total and count
         total_stmt = select(
-            func.count(Donation.id).label("count"),
+            func.count(Donation.id).label("donation_count"),
             func.coalesce(func.sum(Donation.amount), 0).label("total"),
         ).where(
             Donation.donation_date >= start_date,
@@ -303,13 +303,14 @@ class DonationService:
         )
         totals = self.db.execute(total_stmt).one()
         total_amount = totals.total or Decimal("0.00")
+        total_donation_count = totals.donation_count or 0
 
         # By category
         category_stmt = (
             select(
                 DonationCategory.id,
                 DonationCategory.name,
-                func.count(Donation.id).label("count"),
+                func.count(Donation.id).label("donation_count"),
                 func.coalesce(func.sum(Donation.amount), 0).label("total"),
             )
             .outerjoin(
@@ -336,7 +337,7 @@ class DonationService:
                     "category_id": c.id,
                     "category_name": c.name,
                     "total_amount": cat_total,
-                    "donation_count": c.count or 0,
+                    "donation_count": c.donation_count or 0,
                     "percentage": float(cat_total / total_amount * 100)
                     if total_amount > 0
                     else 0,
@@ -345,7 +346,7 @@ class DonationService:
 
         # Uncategorized donations
         uncategorized_stmt = select(
-            func.count(Donation.id).label("count"),
+            func.count(Donation.id).label("donation_count"),
             func.coalesce(func.sum(Donation.amount), 0).label("total"),
         ).where(
             Donation.donation_date >= start_date,
@@ -355,14 +356,14 @@ class DonationService:
             Donation.category_id.is_(None),
         )
         uncategorized = self.db.execute(uncategorized_stmt).one()
-        if uncategorized.count and uncategorized.count > 0:
+        if uncategorized.donation_count and uncategorized.donation_count > 0:
             uncat_total = uncategorized.total or Decimal("0.00")
             by_category.append(
                 {
                     "category_id": None,
                     "category_name": "Uncategorized",
                     "total_amount": uncat_total,
-                    "donation_count": uncategorized.count,
+                    "donation_count": uncategorized.donation_count,
                     "percentage": float(uncat_total / total_amount * 100)
                     if total_amount > 0
                     else 0,
@@ -390,7 +391,7 @@ class DonationService:
         return {
             "period_start": start_date,
             "period_end": end_date,
-            "total_donations": totals.count or 0,
+            "total_donations": total_donation_count,
             "total_amount": total_amount,
             "currency": currency,
             "by_category": by_category,

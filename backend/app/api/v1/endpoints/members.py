@@ -46,7 +46,7 @@ def list_members(
     total_pages = (total + page_size - 1) // page_size if total > 0 else 1
 
     return MemberListResponse(
-        items=members,
+        items=[MemberResponse.model_validate(m) for m in members],
         total=total,
         page=page,
         page_size=page_size,

@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, cast
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -19,6 +19,7 @@ from app.schemas.prayer import (
     PrayerRequestListResponse,
     PrayerRequestResponse,
     PrayerRequestUpdate,
+    PrayerStatus,
     PrayResponse,
     PublicPrayerListResponse,
     PublicPrayerResponse,
@@ -146,7 +147,7 @@ def moderate_prayer_request(
     return PrayerModerationResponse(
         success=success,
         message=message,
-        status=new_status,
+        status=cast(PrayerStatus, new_status),
     )
 
 

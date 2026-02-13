@@ -1,4 +1,5 @@
 from datetime import date, datetime
+from typing import TypedDict
 from uuid import UUID
 
 import boto3
@@ -15,8 +16,16 @@ from app.schemas.sermon import (
     SermonUpdate,
 )
 
+
+class MediaConfigType(TypedDict):
+    extensions: list[str]
+    content_types: list[str]
+    max_size: int
+    path: str
+
+
 # Allowed media types and their content types
-MEDIA_CONFIG = {
+MEDIA_CONFIG: dict[str, MediaConfigType] = {
     "audio": {
         "extensions": ["mp3", "m4a", "wav"],
         "content_types": ["audio/mpeg", "audio/mp4", "audio/wav", "audio/x-wav"],
@@ -400,13 +409,20 @@ class SermonService:
         if not sermon:
             return []
 
+        # Build conditions for related sermons
+        conditions = []
+        if sermon.series_id:
+            conditions.append(Sermon.series_id == sermon.series_id)
+        if sermon.speaker_id:
+            conditions.append(Sermon.speaker_id == sermon.speaker_id)
+
+        if not conditions:
+            return []
+
         stmt = select(Sermon).where(
             Sermon.id != sermon_id,
             Sermon.is_published == True,  # noqa: E712
-            or_(
-                Sermon.series_id == sermon.series_id if sermon.series_id else False,
-                Sermon.speaker_id == sermon.speaker_id if sermon.speaker_id else False,
-            ),
+            or_(*conditions),
         )
         stmt = stmt.order_by(Sermon.sermon_date.desc()).limit(limit)
         sermons = list(self.db.execute(stmt).scalars().all())
